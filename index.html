@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="UTF-8">
 <title>LUMIÈRE</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
 * {
@@ -13,84 +13,107 @@
 }
 
 body {
-  background: #0f1113;
+  background: #0e0e0e;
   color: #fff;
-  font-family: Helvetica, Arial, sans-serif;
-  overflow-x: hidden;
+  font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
 }
 
-/* HERO */
+/* ---------- HERO ---------- */
 .hero {
   height: 70vh;
-  background: url("images/hero-background.jpg") center center / cover no-repeat;
+  background-image: url("images/hero-background.jpg");
+  background-size: cover;
+  background-position: center top;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.hero h1 {
-  font-size: 48px;
-  letter-spacing: 6px;
-  font-weight: 300;
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.35);
 }
 
-/* GALLERY */
+.hero-content {
+  position: relative;
+  text-align: center;
+}
+
+.hero h1 {
+  font-size: 3rem;
+  letter-spacing: 0.25em;
+  margin-bottom: 1rem;
+}
+
+.hero p {
+  font-size: 1.1rem;
+  opacity: 0.85;
+}
+
+/* ---------- GALLERY ---------- */
 .gallery-wrapper {
   position: relative;
-  margin: 80px 0;
+  margin: 4rem auto;
+  max-width: 1200px;
   overflow: hidden;
 }
 
 .gallery {
   display: flex;
-  gap: 30px;
-  transition: transform 0.5s ease;
+  gap: 1.5rem;
+  justify-content: center;
 }
 
 .gallery img {
-  width: 260px;
-  height: 260px;
+  width: 220px;
+  height: 220px;
   object-fit: cover;
+  border-radius: 6px;
   flex-shrink: 0;
-  border-radius: 4px;
 }
 
-/* BUTTONS */
-.nav-btn {
+/* ---------- NAV ---------- */
+.nav {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  background: rgba(255,255,255,0.1);
+  background: rgba(255,255,255,0.08);
   border: none;
-  color: #fff;
-  font-size: 30px;
-  width: 50px;
-  height: 80px;
+  color: white;
+  font-size: 2rem;
+  padding: 0.4rem 0.9rem;
   cursor: pointer;
-  z-index: 10;
 }
 
-.nav-btn:hover {
-  background: rgba(255,255,255,0.2);
+.nav:hover {
+  background: rgba(255,255,255,0.18);
 }
 
-.prev { left: 10px; }
-.next { right: 10px; }
+.prev {
+  left: 0;
+}
+
+.next {
+  right: 0;
+}
 </style>
 </head>
 
 <body>
 
 <section class="hero">
-  <h1>LUMIÈRE</h1>
+  <div class="hero-content">
+    <h1>LUMIÈRE</h1>
+    <p>Curated European Lighting Objects</p>
+  </div>
 </section>
 
 <section class="gallery-wrapper">
-  <button class="nav-btn prev">&#10094;</button>
-  <div class="gallery" id="gallery">
-    <!-- Bilder werden per JS eingefügt -->
-  </div>
-  <button class="nav-btn next">&#10095;</button>
+  <button class="nav prev">‹</button>
+  <div class="gallery" id="gallery"></div>
+  <button class="nav next">›</button>
 </section>
 
 <script>
@@ -101,50 +124,28 @@ const images = [
 
 const gallery = document.getElementById("gallery");
 let index = 0;
+const visible = 5;
 
-/* DUPLIKATE FÜR ENDLOS-LOOP */
-const loopImages = [...images, ...images, ...images];
-
-loopImages.forEach(img => {
-  const el = document.createElement("img");
-  el.src = "images/" + img;
-  gallery.appendChild(el);
-});
-
-/* Start mittig */
-index = images.length;
-update();
-
-function update() {
-  const offset = -(index * 290);
-  gallery.style.transform = `translateX(${offset}px)`;
+function render() {
+  gallery.innerHTML = "";
+  for (let i = 0; i < visible; i++) {
+    const img = document.createElement("img");
+    img.src = "images/" + images[(index + i) % images.length];
+    gallery.appendChild(img);
+  }
 }
 
 document.querySelector(".next").onclick = () => {
-  index++;
-  if (index >= images.length * 2) {
-    index = images.length;
-    gallery.style.transition = "none";
-    update();
-    requestAnimationFrame(() => {
-      gallery.style.transition = "transform 0.5s ease";
-    });
-  }
-  update();
+  index = (index + 1) % images.length;
+  render();
 };
 
 document.querySelector(".prev").onclick = () => {
-  index--;
-  if (index < images.length) {
-    index = images.length * 2 - 1;
-    gallery.style.transition = "none";
-    update();
-    requestAnimationFrame(() => {
-      gallery.style.transition = "transform 0.5s ease";
-    });
-  }
-  update();
+  index = (index - 1 + images.length) % images.length;
+  render();
 };
+
+render();
 </script>
 
 </body>
