@@ -3,10 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <title>Lumière Gallery</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <style>
-    /* RESET */
     * {
       margin: 0;
       padding: 0;
@@ -14,127 +13,129 @@
     }
 
     body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      background: #0f0f0f;
+      background: #0e0e0e;
       color: #eaeaea;
+      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
       overflow-x: hidden;
     }
 
-    /* HERO */
-    .hero {
-      height: 70vh;
+    /* HEADER */
+    header {
+      height: 60vh;
       display: flex;
       align-items: center;
       justify-content: center;
-      background: radial-gradient(circle at top, #2a2a2a, #0f0f0f);
-      text-align: center;
+      background: radial-gradient(circle at top, #2a2a2a, #0e0e0e);
     }
 
-    .hero h1 {
-      font-size: 3rem;
-      letter-spacing: 0.08em;
+    header h1 {
       font-weight: 300;
+      letter-spacing: 0.12em;
+      font-size: 3rem;
     }
 
-    /* SCROLL SECTION */
-    .scroll-section {
-      margin-top: 80px;
-      padding-bottom: 80px;
-    }
-
-    .scroll-wrapper {
+    /* GALLERY */
+    .gallery-section {
       position: relative;
+      padding: 60px 0;
+    }
+
+    .gallery-wrapper {
       overflow: hidden;
       width: 100%;
     }
 
-    .scroll-track {
+    .gallery-track {
       display: flex;
-      width: max-content;
-      animation: scrollLoop 60s linear infinite;
+      gap: 40px;
+      padding: 0 80px;
+      transition: transform 0.5s ease;
     }
 
-    .scroll-track:hover {
-      animation-play-state: paused;
-    }
-
-    .lamp-item {
-      flex: 0 0 auto;
-      width: 280px;
-      margin-right: 40px;
-    }
-
-    .lamp-item img {
-      width: 100%;
-      height: auto;
-      display: block;
-      border-radius: 4px;
+    .item {
+      width: 260px;
+      aspect-ratio: 1 / 1;
+      flex-shrink: 0;
       background: #111;
+      border-radius: 4px;
+      overflow: hidden;
     }
 
-    /* KEYFRAMES */
-    @keyframes scrollLoop {
-      0% {
-        transform: translateX(0);
-      }
-      100% {
-        transform: translateX(-50%);
-      }
+    .item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
     }
 
-    /* FOOTER */
-    footer {
-      text-align: center;
-      padding: 40px 0;
-      font-size: 0.8rem;
-      color: #666;
+    /* ARROWS */
+    .arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255,255,255,0.08);
+      border: none;
+      color: white;
+      font-size: 2rem;
+      width: 48px;
+      height: 48px;
+      cursor: pointer;
+      z-index: 10;
+    }
+
+    .arrow:hover {
+      background: rgba(255,255,255,0.2);
+    }
+
+    .arrow.left {
+      left: 20px;
+    }
+
+    .arrow.right {
+      right: 20px;
     }
   </style>
 </head>
 
 <body>
 
-  <!-- HERO -->
-  <section class="hero">
-    <h1>LUMIÈRE</h1>
-  </section>
+<header>
+  <h1>LUMIÈRE</h1>
+</header>
 
-  <!-- SCROLLING GALLERY -->
-  <section class="scroll-section">
-    <div class="scroll-wrapper">
-      <div class="scroll-track">
+<section class="gallery-section">
 
-        <!-- ORIGINAL SEQUENCE -->
-        <div class="lamp-item"><img src="images/Lamp1.jpg" alt="Lamp 1"></div>
-        <div class="lamp-item"><img src="images/Lamp2.jpg" alt="Lamp 2"></div>
-        <div class="lamp-item"><img src="images/Lamp3.jpg" alt="Lamp 3"></div>
-        <div class="lamp-item"><img src="images/Lamp4.jpg" alt="Lamp 4"></div>
-        <div class="lamp-item"><img src="images/Lamp5.jpg" alt="Lamp 5"></div>
-        <div class="lamp-item"><img src="images/Lamp6.jpg" alt="Lamp 6"></div>
-        <div class="lamp-item"><img src="images/Lamp7.jpg" alt="Lamp 7"></div>
-        <div class="lamp-item"><img src="images/Lamp8.jpg" alt="Lamp 8"></div>
-        <div class="lamp-item"><img src="images/Lamp9.jpg" alt="Lamp 9"></div>
-        <div class="lamp-item"><img src="images/Lamp10.jpg" alt="Lamp 10"></div>
+  <button class="arrow left" onclick="scrollGallery(-1)">‹</button>
+  <button class="arrow right" onclick="scrollGallery(1)">›</button>
 
-        <!-- DUPLIKAT FÜR ENDLOS-LOOP -->
-        <div class="lamp-item"><img src="images/Lamp1.jpg" alt=""></div>
-        <div class="lamp-item"><img src="images/Lamp2.jpg" alt=""></div>
-        <div class="lamp-item"><img src="images/Lamp3.jpg" alt=""></div>
-        <div class="lamp-item"><img src="images/Lamp4.jpg" alt=""></div>
-        <div class="lamp-item"><img src="images/Lamp5.jpg" alt=""></div>
-        <div class="lamp-item"><img src="images/Lamp6.jpg" alt=""></div>
-        <div class="lamp-item"><img src="images/Lamp7.jpg" alt=""></div>
-        <div class="lamp-item"><img src="images/Lamp8.jpg" alt=""></div>
-        <div class="lamp-item"><img src="images/Lamp9.jpg" alt=""></div>
-        <div class="lamp-item"><img src="images/Lamp10.jpg" alt=""></div>
+  <div class="gallery-wrapper">
+    <div class="gallery-track" id="gallery">
 
-      </div>
+      <div class="item"><img src="images/Lamp1.jpg"></div>
+      <div class="item"><img src="images/Lamp2.jpg"></div>
+      <div class="item"><img src="images/Lamp3.jpg"></div>
+      <div class="item"><img src="images/Lamp4.jpg"></div>
+      <div class="item"><img src="images/Lamp5.jpg"></div>
+      <div class="item"><img src="images/Lamp6.jpg"></div>
+      <div class="item"><img src="images/Lamp7.jpg"></div>
+      <div class="item"><img src="images/Lamp8.jpg"></div>
+      <div class="item"><img src="images/Lamp9.jpg"></div>
+      <div class="item"><img src="images/Lamp10.jpg"></div>
+
     </div>
-  </section>
+  </div>
+</section>
 
-  <footer>
-    © Lumière Gallery
-  </footer>
+<script>
+  let offset = 0;
+
+  function scrollGallery(direction) {
+    const track = document.getElementById('gallery');
+    const step = 300;
+    offset += direction * step;
+    track.style.transform = `translateX(${offset}px)`;
+  }
+</script>
 
 </body>
 </html>
