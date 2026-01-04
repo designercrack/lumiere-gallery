@@ -1,149 +1,119 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>LUMIÈRE — European Interior Gallery</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<title>LUMIÈRE</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-:root {
-  --bg: #0b1412;
-  --gold: #c6a86d;
-  --text: #eae6dc;
-  --muted: #9f9b91;
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
-
-* { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
-  background: var(--bg);
-  color: var(--text);
-  font-family: Inter, sans-serif;
-  overflow-x: hidden;
+  background: #0e0e0e;
+  color: #fff;
+  font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
 }
 
-/* ================= HERO ================= */
-
+/* ---------- HERO ---------- */
 .hero {
-  position: relative;
-  height: 90vh;
-  background: 
-    linear-gradient(to right, rgba(0,0,0,0.65), rgba(0,0,0,0.2)),
-    url("images/hero-background.jpg") center / cover no-repeat;
-  display: flex;
-  align-items: center;
-}
-
-.hero-content {
-  max-width: 700px;
-  padding-left: 8vw;
-}
-
-.hero h1 {
-  font-family: "Playfair Display", serif;
-  font-size: 4.2rem;
-  letter-spacing: 0.05em;
-  margin-bottom: 1rem;
-}
-
-.hero p {
-  color: var(--muted);
-  font-size: 1.1rem;
-  margin-bottom: 2.5rem;
-}
-
-.hero a {
-  display: inline-block;
-  border: 1px solid var(--gold);
-  padding: 14px 34px;
-  color: var(--gold);
-  text-decoration: none;
-  letter-spacing: 0.08em;
-  transition: all 0.3s ease;
-}
-
-.hero a:hover {
-  background: var(--gold);
-  color: #111;
-}
-
-/* ================= CAROUSEL ================= */
-
-.carousel-wrapper {
-  position: relative;
-  padding: 80px 60px;
-}
-
-.carousel {
-  display: flex;
-  gap: 24px;
-  transition: transform 0.6s ease;
-}
-
-.carousel-item {
-  min-width: 260px;
-  aspect-ratio: 1 / 1;
-  overflow: hidden;
-  border-radius: 6px;
-}
-
-.carousel-item img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.arrow {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background: rgba(0,0,0,0.6);
-  border: 1px solid var(--gold);
-  color: var(--gold);
-  width: 44px;
-  height: 44px;
-  cursor: pointer;
-  font-size: 22px;
+  height: 70vh;
+  background-image: url("images/hero-background.jpg");
+  background-size: cover;
+  background-position: center top;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.arrow.left { left: 20px; }
-.arrow.right { right: 20px; }
-
-.arrow:hover {
-  background: var(--gold);
-  color: #111;
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.35);
 }
 
-/* ================= RESPONSIVE ================= */
+.hero-content {
+  position: relative;
+  text-align: center;
+}
 
-@media (max-width: 768px) {
-  .hero h1 { font-size: 2.8rem; }
-  .carousel-wrapper { padding: 60px 30px; }
+.hero h1 {
+  font-size: 3rem;
+  letter-spacing: 0.25em;
+  margin-bottom: 1rem;
+}
+
+.hero p {
+  font-size: 1.1rem;
+  opacity: 0.85;
+}
+
+/* ---------- GALLERY ---------- */
+.gallery-wrapper {
+  position: relative;
+  margin: 4rem auto;
+  max-width: 1200px;
+  overflow: hidden;
+}
+
+.gallery {
+  display: flex;
+  gap: 1.5rem;
+  justify-content: center;
+}
+
+.gallery img {
+  width: 220px;
+  height: 220px;
+  object-fit: cover;
+  border-radius: 6px;
+  flex-shrink: 0;
+}
+
+/* ---------- NAV ---------- */
+.nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255,255,255,0.08);
+  border: none;
+  color: white;
+  font-size: 2rem;
+  padding: 0.4rem 0.9rem;
+  cursor: pointer;
+}
+
+.nav:hover {
+  background: rgba(255,255,255,0.18);
+}
+
+.prev {
+  left: 0;
+}
+
+.next {
+  right: 0;
 }
 </style>
 </head>
 
 <body>
 
-<!-- HERO -->
 <section class="hero">
   <div class="hero-content">
     <h1>LUMIÈRE</h1>
     <p>Curated European Lighting Objects</p>
-    <a href="#">Explore the Collection</a>
   </div>
 </section>
 
-<!-- CAROUSEL -->
-<section class="carousel-wrapper">
-  <button class="arrow left">‹</button>
-  <div class="carousel" id="carousel"></div>
-  <button class="arrow right">›</button>
+<section class="gallery-wrapper">
+  <button class="nav prev">‹</button>
+  <div class="gallery" id="gallery"></div>
+  <button class="nav next">›</button>
 </section>
 
 <script>
@@ -152,52 +122,30 @@ const images = [
   "Lamp6.jpg","Lamp7.jpg","Lamp8.jpg","Lamp9.jpg","Lamp10.jpg"
 ];
 
-const carousel = document.getElementById("carousel");
+const gallery = document.getElementById("gallery");
+let index = 0;
+const visible = 5;
 
-// Clone für Endlos-Loop
-const fullList = [...images, ...images, ...images];
-let index = images.length;
-
-fullList.forEach(src => {
-  const item = document.createElement("div");
-  item.className = "carousel-item";
-  item.innerHTML = `<img src="images/${src}" alt="">`;
-  carousel.appendChild(item);
-});
-
-const itemWidth = 260 + 24;
-
-function update() {
-  carousel.style.transform = `translateX(${-index * itemWidth}px)`;
+function render() {
+  gallery.innerHTML = "";
+  for (let i = 0; i < visible; i++) {
+    const img = document.createElement("img");
+    img.src = "images/" + images[(index + i) % images.length];
+    gallery.appendChild(img);
+  }
 }
 
-update();
-
-document.querySelector(".arrow.right").onclick = () => {
-  index++;
-  carousel.style.transition = "transform 0.6s ease";
-  update();
-  if (index >= images.length * 2) {
-    setTimeout(() => {
-      carousel.style.transition = "none";
-      index = images.length;
-      update();
-    }, 600);
-  }
+document.querySelector(".next").onclick = () => {
+  index = (index + 1) % images.length;
+  render();
 };
 
-document.querySelector(".arrow.left").onclick = () => {
-  index--;
-  carousel.style.transition = "transform 0.6s ease";
-  update();
-  if (index <= 0) {
-    setTimeout(() => {
-      carousel.style.transition = "none";
-      index = images.length;
-      update();
-    }, 600);
-  }
+document.querySelector(".prev").onclick = () => {
+  index = (index - 1 + images.length) % images.length;
+  render();
 };
+
+render();
 </script>
 
 </body>
