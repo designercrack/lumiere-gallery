@@ -1,140 +1,148 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8" />
-  <title>Lumière Gallery</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<title>Lumière Gallery</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
-    body {
-      background: #0e0e0e;
-      color: #eaeaea;
-      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-      overflow-x: hidden;
-    }
+body {
+  background: #0e0e0e;
+  color: #eaeaea;
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  overflow-x: hidden;
+}
 
-    /* HEADER */
-    header {
-      height: 60vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: radial-gradient(circle at top, #2a2a2a, #0e0e0e);
-    }
+/* HERO */
+.hero {
+  height: 70vh;
+  background-image: url("images/hero-background.jpg");
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
-    header h1 {
-      font-weight: 300;
-      letter-spacing: 0.12em;
-      font-size: 3rem;
-    }
+.hero-content {
+  font-size: 3rem;
+  letter-spacing: 0.14em;
+  font-weight: 300;
+}
 
-    /* GALLERY */
-    .gallery-section {
-      position: relative;
-      padding: 60px 0;
-    }
+/* GALLERY */
+.gallery-section {
+  position: relative;
+  padding: 80px 0;
+}
 
-    .gallery-wrapper {
-      overflow: hidden;
-      width: 100%;
-    }
+.gallery-wrapper {
+  overflow: hidden;
+  width: 100%;
+}
 
-    .gallery-track {
-      display: flex;
-      gap: 40px;
-      padding: 0 80px;
-      transition: transform 0.5s ease;
-    }
+.gallery-track {
+  display: flex;
+  gap: 40px;
+  padding: 0 80px;
+  transition: transform 0.45s ease;
+}
 
-    .item {
-      width: 260px;
-      aspect-ratio: 1 / 1;
-      flex-shrink: 0;
-      background: #111;
-      border-radius: 4px;
-      overflow: hidden;
-    }
+.item {
+  width: 260px;
+  aspect-ratio: 1 / 1;
+  flex-shrink: 0;
+  overflow: hidden;
+  background: #111;
+}
 
-    .item img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
+.item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
 
-    /* ARROWS */
-    .arrow {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      background: rgba(255,255,255,0.08);
-      border: none;
-      color: white;
-      font-size: 2rem;
-      width: 48px;
-      height: 48px;
-      cursor: pointer;
-      z-index: 10;
-    }
+/* ARROWS */
+.arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255,255,255,0.08);
+  border: none;
+  color: white;
+  font-size: 2rem;
+  width: 48px;
+  height: 48px;
+  cursor: pointer;
+  z-index: 10;
+}
 
-    .arrow:hover {
-      background: rgba(255,255,255,0.2);
-    }
+.arrow:hover {
+  background: rgba(255,255,255,0.2);
+}
 
-    .arrow.left {
-      left: 20px;
-    }
-
-    .arrow.right {
-      right: 20px;
-    }
-  </style>
+.arrow.left { left: 20px; }
+.arrow.right { right: 20px; }
+</style>
 </head>
 
 <body>
 
-<header>
-  <h1>LUMIÈRE</h1>
+<header class="hero">
+  <div class="hero-content">LUMIÈRE</div>
 </header>
 
 <section class="gallery-section">
 
-  <button class="arrow left" onclick="scrollGallery(-1)">‹</button>
-  <button class="arrow right" onclick="scrollGallery(1)">›</button>
+<button class="arrow left" onclick="move(-1)">‹</button>
+<button class="arrow right" onclick="move(1)">›</button>
 
-  <div class="gallery-wrapper">
-    <div class="gallery-track" id="gallery">
+<div class="gallery-wrapper">
+  <div class="gallery-track" id="track">
 
-      <div class="item"><img src="images/Lamp1.jpg"></div>
-      <div class="item"><img src="images/Lamp2.jpg"></div>
-      <div class="item"><img src="images/Lamp3.jpg"></div>
-      <div class="item"><img src="images/Lamp4.jpg"></div>
-      <div class="item"><img src="images/Lamp5.jpg"></div>
-      <div class="item"><img src="images/Lamp6.jpg"></div>
-      <div class="item"><img src="images/Lamp7.jpg"></div>
-      <div class="item"><img src="images/Lamp8.jpg"></div>
-      <div class="item"><img src="images/Lamp9.jpg"></div>
-      <div class="item"><img src="images/Lamp10.jpg"></div>
+    <div class="item"><img src="images/Lamp1.jpg"></div>
+    <div class="item"><img src="images/Lamp2.jpg"></div>
+    <div class="item"><img src="images/Lamp3.jpg"></div>
+    <div class="item"><img src="images/Lamp4.jpg"></div>
+    <div class="item"><img src="images/Lamp5.jpg"></div>
+    <div class="item"><img src="images/Lamp6.jpg"></div>
+    <div class="item"><img src="images/Lamp7.jpg"></div>
+    <div class="item"><img src="images/Lamp8.jpg"></div>
+    <div class="item"><img src="images/Lamp9.jpg"></div>
+    <div class="item"><img src="images/Lamp10.jpg"></div>
 
-    </div>
   </div>
+</div>
+
 </section>
 
 <script>
-  let offset = 0;
+const track = document.getElementById('track');
+const items = document.querySelectorAll('.item');
+const gap = 40;
+const itemWidth = 260 + gap;
 
-  function scrollGallery(direction) {
-    const track = document.getElementById('gallery');
-    const step = 300;
-    offset += direction * step;
-    track.style.transform = `translateX(${offset}px)`;
-  }
+let index = 0;
+const max = items.length;
+
+function update() {
+  track.style.transform = `translateX(${-index * itemWidth}px)`;
+}
+
+function move(direction) {
+  index += direction;
+
+  if (index < 0) index = max - 1;
+  if (index >= max) index = 0;
+
+  update();
+}
 </script>
 
 </body>
