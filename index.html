@@ -1,173 +1,140 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>European Interior Gallery</title>
+  <meta charset="UTF-8" />
+  <title>Lumière Gallery</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<style>
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+  <style>
+    /* RESET */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-body {
-  font-family: Georgia, serif;
-  background-color: #0f1412;
-  color: #ffffff;
-}
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: #0f0f0f;
+      color: #eaeaea;
+      overflow-x: hidden;
+    }
 
-/* HERO */
-.hero {
-  width: 100%;
-  background-color: #0f1412;
-  padding: 4rem 3rem;
-}
+    /* HERO */
+    .hero {
+      height: 70vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: radial-gradient(circle at top, #2a2a2a, #0f0f0f);
+      text-align: center;
+    }
 
-.hero-inner {
-  max-width: 1400px;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: 1fr 1.2fr;
-  gap: 3rem;
-  align-items: center;
-}
+    .hero h1 {
+      font-size: 3rem;
+      letter-spacing: 0.08em;
+      font-weight: 300;
+    }
 
-.hero-text h1 {
-  font-size: 3rem;
-  line-height: 1.1;
-  margin-bottom: 1rem;
-}
+    /* SCROLL SECTION */
+    .scroll-section {
+      margin-top: 80px;
+      padding-bottom: 80px;
+    }
 
-.hero-text h1 em {
-  font-style: italic;
-}
+    .scroll-wrapper {
+      position: relative;
+      overflow: hidden;
+      width: 100%;
+    }
 
-.hero-text p {
-  font-size: 1rem;
-  opacity: 0.9;
-  margin-bottom: 2rem;
-}
+    .scroll-track {
+      display: flex;
+      width: max-content;
+      animation: scrollLoop 60s linear infinite;
+    }
 
-.hero-text a {
-  display: inline-block;
-  padding: 0.8rem 1.6rem;
-  border: 1px solid #e6d7b9;
-  color: #e6d7b9;
-  text-decoration: none;
-  border-radius: 30px;
-  font-size: 0.9rem;
-}
+    .scroll-track:hover {
+      animation-play-state: paused;
+    }
 
-.hero-image img {
-  width: 100%;
-  height: auto;
-  display: block;
-  border-radius: 2px;
-}
+    .lamp-item {
+      flex: 0 0 auto;
+      width: 280px;
+      margin-right: 40px;
+    }
 
-/* COLLECTIONS */
-.collections {
-  padding: 5rem 3rem;
-  text-align: center;
-}
+    .lamp-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 4px;
+      background: #111;
+    }
 
-.collections h2 {
-  font-size: 2.2rem;
-  margin-bottom: 0.5rem;
-}
+    /* KEYFRAMES */
+    @keyframes scrollLoop {
+      0% {
+        transform: translateX(0);
+      }
+      100% {
+        transform: translateX(-50%);
+      }
+    }
 
-.collections p {
-  opacity: 0.85;
-  margin-bottom: 3rem;
-}
-
-.cards {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 2rem;
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-.card {
-  background-color: #1a2320;
-  padding: 2rem;
-  border-radius: 6px;
-}
-
-.card a {
-  display: inline-block;
-  margin-top: 1rem;
-  color: #e6d7b9;
-  text-decoration: none;
-  font-size: 0.9rem;
-}
-
-footer {
-  text-align: center;
-  padding: 2rem;
-  font-size: 0.8rem;
-  opacity: 0.6;
-}
-
-/* RESPONSIVE */
-@media (max-width: 900px) {
-  .hero-inner {
-    grid-template-columns: 1fr;
-  }
-
-  .hero {
-    padding: 3rem 2rem;
-  }
-}
-</style>
+    /* FOOTER */
+    footer {
+      text-align: center;
+      padding: 40px 0;
+      font-size: 0.8rem;
+      color: #666;
+    }
+  </style>
 </head>
 
 <body>
 
-<section class="hero">
-  <div class="hero-inner">
-    <div class="hero-text">
-      <h1>European Interior<br><em>Gallery</em></h1>
-      <p>Curated lighting & objects<br>for modern living.</p>
-      <a href="#collections">Explore the Collection →</a>
-    </div>
+  <!-- HERO -->
+  <section class="hero">
+    <h1>LUMIÈRE</h1>
+  </section>
 
-    <div class="hero-image">
-      <img src="images/hero-background.jpg" alt="European Interior Gallery Hero Image">
-    </div>
-  </div>
-</section>
+  <!-- SCROLLING GALLERY -->
+  <section class="scroll-section">
+    <div class="scroll-wrapper">
+      <div class="scroll-track">
 
-<section id="collections" class="collections">
-  <h2>Unsere Kollektionen</h2>
-  <p>Curated lighting & objects for modern living.</p>
+        <!-- ORIGINAL SEQUENCE -->
+        <div class="lamp-item"><img src="images/Lamp1.jpg" alt="Lamp 1"></div>
+        <div class="lamp-item"><img src="images/Lamp2.jpg" alt="Lamp 2"></div>
+        <div class="lamp-item"><img src="images/Lamp3.jpg" alt="Lamp 3"></div>
+        <div class="lamp-item"><img src="images/Lamp4.jpg" alt="Lamp 4"></div>
+        <div class="lamp-item"><img src="images/Lamp5.jpg" alt="Lamp 5"></div>
+        <div class="lamp-item"><img src="images/Lamp6.jpg" alt="Lamp 6"></div>
+        <div class="lamp-item"><img src="images/Lamp7.jpg" alt="Lamp 7"></div>
+        <div class="lamp-item"><img src="images/Lamp8.jpg" alt="Lamp 8"></div>
+        <div class="lamp-item"><img src="images/Lamp9.jpg" alt="Lamp 9"></div>
+        <div class="lamp-item"><img src="images/Lamp10.jpg" alt="Lamp 10"></div>
 
-  <div class="cards">
-    <div class="card">
-      <strong>Modern Classics</strong><br>
-      <a href="#">Ansehen →</a>
-    </div>
-    <div class="card">
-      <strong>Iconic Objects</strong><br>
-      <a href="#">Ansehen →</a>
-    </div>
-    <div class="card">
-      <strong>Statement Lighting</strong><br>
-      <a href="#">Ansehen →</a>
-    </div>
-    <div class="card">
-      <strong>Architectural Light</strong><br>
-      <a href="#">Ansehen →</a>
-    </div>
-  </div>
-</section>
+        <!-- DUPLIKAT FÜR ENDLOS-LOOP -->
+        <div class="lamp-item"><img src="images/Lamp1.jpg" alt=""></div>
+        <div class="lamp-item"><img src="images/Lamp2.jpg" alt=""></div>
+        <div class="lamp-item"><img src="images/Lamp3.jpg" alt=""></div>
+        <div class="lamp-item"><img src="images/Lamp4.jpg" alt=""></div>
+        <div class="lamp-item"><img src="images/Lamp5.jpg" alt=""></div>
+        <div class="lamp-item"><img src="images/Lamp6.jpg" alt=""></div>
+        <div class="lamp-item"><img src="images/Lamp7.jpg" alt=""></div>
+        <div class="lamp-item"><img src="images/Lamp8.jpg" alt=""></div>
+        <div class="lamp-item"><img src="images/Lamp9.jpg" alt=""></div>
+        <div class="lamp-item"><img src="images/Lamp10.jpg" alt=""></div>
 
-<footer>
-  © European Interior Gallery
-</footer>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    © Lumière Gallery
+  </footer>
 
 </body>
 </html>
