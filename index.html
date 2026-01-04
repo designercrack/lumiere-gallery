@@ -1,181 +1,180 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-    <meta charset="UTF-8">
-    <title>European Interior Gallery</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>European Interior Gallery</title>
 
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-        body {
-            font-family: "Georgia", serif;
-            background-color: #0f1b1a;
-            color: #f2f2f2;
-            line-height: 1.6;
-        }
+    body {
+      font-family: "Georgia", serif;
+      background-color: #0f1a18;
+      color: #f5f3ef;
+    }
 
-        /* HERO */
-        .hero {
-            min-height: 100vh;
-            background:
-                linear-gradient(
-                    to bottom,
-                    rgba(10, 20, 18, 0.55),
-                    rgba(10, 20, 18, 0.85)
-                ),
-                url("images/hero-background.jpg");
-            background-size: cover;
-            background-position: center;
-            display: flex;
-            align-items: center;
-            padding: 80px;
-        }
+    /* HERO */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      background-image: url("images/hero-background.jpg");
+      background-size: cover;
+      background-position: center top;
+      background-repeat: no-repeat;
+    }
 
-        .hero-content {
-            max-width: 600px;
-        }
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0.25),
+        rgba(0, 0, 0, 0.55)
+      );
+      z-index: 1;
+    }
 
-        .hero h1 {
-            font-size: 52px;
-            font-weight: normal;
-        }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      padding: 120px 80px;
+      max-width: 700px;
+    }
 
-        .hero h1 span {
-            font-style: italic;
-            display: block;
-        }
+    .hero h1 {
+      font-size: 48px;
+      line-height: 1.1;
+      margin-bottom: 20px;
+    }
 
-        .hero p {
-            margin-top: 20px;
-            font-size: 18px;
-            opacity: 0.85;
-        }
+    .hero h1 span {
+      font-style: italic;
+      font-weight: normal;
+    }
 
-        .hero a {
-            display: inline-block;
-            margin-top: 30px;
-            padding: 14px 28px;
-            border: 1px solid #d2b48c;
-            color: #d2b48c;
-            text-decoration: none;
-            border-radius: 30px;
-            transition: all 0.3s ease;
-        }
+    .hero p {
+      font-size: 16px;
+      margin-bottom: 40px;
+      color: #e6e3dd;
+    }
 
-        .hero a:hover {
-            background: #d2b48c;
-            color: #0f1b1a;
-        }
+    .btn {
+      display: inline-block;
+      padding: 14px 28px;
+      border: 1px solid #d4c6a1;
+      border-radius: 30px;
+      color: #d4c6a1;
+      text-decoration: none;
+      font-size: 14px;
+      transition: all 0.3s ease;
+    }
 
-        /* COLLECTIONS */
-        .collections {
-            background:
-                linear-gradient(
-                    to bottom,
-                    rgba(15, 40, 35, 0.95),
-                    rgba(10, 25, 22, 0.98)
-                );
-            padding: 120px 60px;
-            text-align: center;
-        }
+    .btn:hover {
+      background-color: #d4c6a1;
+      color: #1b1b1b;
+    }
 
-        .collections h2 {
-            font-size: 40px;
-            margin-bottom: 10px;
-        }
+    /* COLLECTION */
+    .collection {
+      padding: 100px 60px;
+      background: linear-gradient(
+        to bottom,
+        #0f1a18,
+        #1f6f5c
+      );
+      text-align: center;
+    }
 
-        .collections p {
-            opacity: 0.8;
-            margin-bottom: 60px;
-        }
+    .collection h2 {
+      font-size: 36px;
+      margin-bottom: 10px;
+    }
 
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 30px;
-            max-width: 1100px;
-            margin: 0 auto;
-        }
+    .collection p {
+      font-size: 14px;
+      margin-bottom: 60px;
+      color: #ddd8cc;
+    }
 
-        .card {
-            background: rgba(255,255,255,0.04);
-            border-radius: 12px;
-            padding: 30px;
-            text-align: center;
-            transition: transform 0.3s ease;
-        }
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 30px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
 
-        .card:hover {
-            transform: translateY(-6px);
-        }
+    .card {
+      background-color: rgba(255, 255, 255, 0.05);
+      padding: 40px 20px;
+      border-radius: 14px;
+    }
 
-        .card h3 {
-            margin-bottom: 10px;
-            font-size: 20px;
-        }
+    .card h3 {
+      font-size: 18px;
+      margin-bottom: 14px;
+    }
 
-        .card a {
-            color: #d2b48c;
-            text-decoration: none;
-            font-size: 14px;
-        }
+    .card a {
+      color: #d4c6a1;
+      text-decoration: none;
+      font-size: 14px;
+    }
 
-        footer {
-            padding: 40px;
-            text-align: center;
-            font-size: 13px;
-            opacity: 0.5;
-        }
-    </style>
+    footer {
+      padding: 40px;
+      text-align: center;
+      font-size: 12px;
+      color: #aaa;
+    }
+  </style>
 </head>
 
 <body>
 
-    <!-- HERO -->
-    <section class="hero">
-        <div class="hero-content">
-            <h1>European Interior <span>Gallery</span></h1>
-            <p>Curated lighting & objects<br>for modern living.</p>
-            <a href="#collections">Explore the Collection →</a>
-        </div>
-    </section>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-content">
+      <h1>European Interior<br><span>Gallery</span></h1>
+      <p>Curated lighting & objects<br>for modern living.</p>
+      <a href="#collection" class="btn">Explore the Collection →</a>
+    </div>
+  </section>
 
-    <!-- COLLECTIONS -->
-    <section id="collections" class="collections">
-        <h2>Unsere Kollektionen</h2>
-        <p>Curated lighting & objects for modern living.</p>
+  <!-- COLLECTION -->
+  <section id="collection" class="collection">
+    <h2>Unsere Kollektionen</h2>
+    <p>Curated lighting & objects for modern living.</p>
 
-        <div class="grid">
-            <div class="card">
-                <h3>Modern Classics</h3>
-                <a href="#">Ansehen →</a>
-            </div>
+    <div class="cards">
+      <div class="card">
+        <h3>Modern Classics</h3>
+        <a href="#">Ansehen →</a>
+      </div>
+      <div class="card">
+        <h3>Iconic Objects</h3>
+        <a href="#">Ansehen →</a>
+      </div>
+      <div class="card">
+        <h3>Statement Lighting</h3>
+        <a href="#">Ansehen →</a>
+      </div>
+      <div class="card">
+        <h3>Architectural Light</h3>
+        <a href="#">Ansehen →</a>
+      </div>
+    </div>
+  </section>
 
-            <div class="card">
-                <h3>Iconic Objects</h3>
-                <a href="#">Ansehen →</a>
-            </div>
-
-            <div class="card">
-                <h3>Statement Lighting</h3>
-                <a href="#">Ansehen →</a>
-            </div>
-
-            <div class="card">
-                <h3>Architectural Light</h3>
-                <a href="#">Ansehen →</a>
-            </div>
-        </div>
-    </section>
-
-    <footer>
-        © European Interior Gallery
-    </footer>
+  <footer>
+    © European Interior Gallery
+  </footer>
 
 </body>
 </html>
