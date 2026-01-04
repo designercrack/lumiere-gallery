@@ -2,40 +2,31 @@
 <html lang="de">
 <head>
 <meta charset="UTF-8">
-<title>European Interior Gallery</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lumière Gallery</title>
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;1,600&family=Inter:wght@300;400&display=swap');
-
 * {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
 }
 
 body {
-  font-family: 'Inter', sans-serif;
-  background: #0f1c1a;
-  color: #e8e6e3;
+  font-family: "Georgia", serif;
+  background: #0f1a17;
+  color: #eae6dc;
 }
 
 /* HERO */
 .hero {
   min-height: 100vh;
   background:
-    linear-gradient(to right,
-      rgba(15,28,26,0.95) 0%,
-      rgba(15,28,26,0.75) 35%,
-      rgba(15,28,26,0.3) 60%,
-      rgba(15,28,26,0.0) 100%
-    ),
-    url("images/hero.jpg");
-  background-size: cover;
-  background-position: center right;
+    linear-gradient(to right, rgba(15,26,23,0.95) 0%, rgba(15,26,23,0.6) 40%, rgba(15,26,23,0.2) 70%, rgba(15,26,23,0) 100%),
+    url("images/hero-background.jpg") center right / cover no-repeat;
   display: flex;
   align-items: center;
-  padding: 6rem;
+  padding: 80px;
 }
 
 .hero-content {
@@ -43,58 +34,51 @@ body {
 }
 
 .hero h1 {
-  font-family: 'Playfair Display', serif;
-  font-size: 3.2rem;
+  font-size: 48px;
   line-height: 1.1;
-  margin-bottom: 1rem;
+  margin-bottom: 20px;
 }
 
 .hero h1 span {
   font-style: italic;
-  font-weight: 600;
 }
 
 .hero p {
-  font-size: 1rem;
-  line-height: 1.6;
-  opacity: 0.85;
-  margin-bottom: 2rem;
+  font-size: 18px;
+  margin-bottom: 30px;
 }
 
 .hero a {
   display: inline-block;
-  padding: 0.9rem 1.8rem;
-  border: 1px solid #cbb98a;
-  color: #cbb98a;
+  padding: 14px 32px;
+  border: 1px solid #c8b98b;
+  border-radius: 30px;
+  color: #c8b98b;
   text-decoration: none;
-  border-radius: 999px;
-  transition: all 0.3s ease;
+  font-size: 16px;
 }
 
 .hero a:hover {
-  background: #cbb98a;
+  background: #c8b98b;
   color: #1a1a1a;
 }
 
-/* COLLECTION SECTION */
+/* SECTION */
 .section {
-  padding: 6rem 2rem;
-  text-align: center;
+  padding: 100px 60px;
   background:
-    linear-gradient(to bottom,
-      #0f1c1a 0%,
-      #183a35 100%
-    );
+    radial-gradient(circle at bottom, #2f6f63 0%, #10201c 55%, #0b1512 100%);
+  text-align: center;
 }
 
 .section h2 {
-  font-family: 'Playfair Display', serif;
-  font-size: 2.4rem;
-  margin-bottom: 0.5rem;
+  font-size: 42px;
+  margin-bottom: 15px;
 }
 
 .section p {
-  opacity: 0.8;
+  font-size: 18px;
+  opacity: 0.85;
 }
 </style>
 </head>
@@ -105,15 +89,14 @@ body {
   <div class="hero-content">
     <h1>European Interior<br><span>Gallery</span></h1>
     <p>Curated lighting & objects<br>for modern living.</p>
-    <a href="#collection">Explore the Collection →</a>
+    <a href="#collections">Explore the Collection →</a>
   </div>
 </section>
 
-<section class="section" id="collection">
+<section id="collections" class="section">
   <h2>Unsere Kollektionen</h2>
   <p>Curated lighting & objects for modern living.</p>
 </section>
 
 </body>
 </html>
-
