@@ -1,164 +1,173 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>European Interior Gallery</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>European Interior Gallery</title>
 
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
-    body {
-      font-family: Georgia, "Times New Roman", serif;
-      background-color: #0f1a18;
-      color: #ffffff;
-    }
+body {
+  font-family: Georgia, serif;
+  background-color: #0f1412;
+  color: #ffffff;
+}
 
-    .hero {
-      min-height: 100vh;
-      background-image: url("images/hero-background.jpg");
-      background-size: cover;
-      background-position: center right;
-      background-repeat: no-repeat;
-      display: flex;
-      align-items: center;
-      padding: 80px;
-    }
+/* HERO */
+.hero {
+  width: 100%;
+  background-color: #0f1412;
+  padding: 4rem 3rem;
+}
 
-    .hero-content {
-      max-width: 520px;
-    }
+.hero-inner {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 3rem;
+  align-items: center;
+}
 
-    h1 {
-      font-size: 48px;
-      font-weight: normal;
-      line-height: 1.1;
-      margin-bottom: 20px;
-    }
+.hero-text h1 {
+  font-size: 3rem;
+  line-height: 1.1;
+  margin-bottom: 1rem;
+}
 
-    h1 em {
-      font-style: italic;
-      display: block;
-    }
+.hero-text h1 em {
+  font-style: italic;
+}
 
-    p {
-      font-size: 16px;
-      line-height: 1.6;
-      margin-bottom: 30px;
-      opacity: 0.9;
-    }
+.hero-text p {
+  font-size: 1rem;
+  opacity: 0.9;
+  margin-bottom: 2rem;
+}
 
-    .btn {
-      display: inline-block;
-      padding: 14px 28px;
-      border: 1px solid #e5d6a3;
-      color: #e5d6a3;
-      text-decoration: none;
-      border-radius: 30px;
-      font-size: 14px;
-      transition: all 0.2s ease;
-    }
+.hero-text a {
+  display: inline-block;
+  padding: 0.8rem 1.6rem;
+  border: 1px solid #e6d7b9;
+  color: #e6d7b9;
+  text-decoration: none;
+  border-radius: 30px;
+  font-size: 0.9rem;
+}
 
-    .btn:hover {
-      background-color: #e5d6a3;
-      color: #1a1a1a;
-    }
+.hero-image img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 2px;
+}
 
-    .section {
-      padding: 100px 60px;
-      background-color: #0f1a18;
-      text-align: center;
-    }
+/* COLLECTIONS */
+.collections {
+  padding: 5rem 3rem;
+  text-align: center;
+}
 
-    .section h2 {
-      font-size: 36px;
-      margin-bottom: 10px;
-      font-weight: normal;
-    }
+.collections h2 {
+  font-size: 2.2rem;
+  margin-bottom: 0.5rem;
+}
 
-    .section p {
-      font-size: 15px;
-      opacity: 0.8;
-    }
+.collections p {
+  opacity: 0.85;
+  margin-bottom: 3rem;
+}
 
-    .collections {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 30px;
-      margin-top: 60px;
-    }
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
 
-    .card {
-      background-color: #18302c;
-      padding: 40px 20px;
-      border-radius: 8px;
-    }
+.card {
+  background-color: #1a2320;
+  padding: 2rem;
+  border-radius: 6px;
+}
 
-    .card h3 {
-      font-size: 18px;
-      margin-bottom: 12px;
-      font-weight: normal;
-    }
+.card a {
+  display: inline-block;
+  margin-top: 1rem;
+  color: #e6d7b9;
+  text-decoration: none;
+  font-size: 0.9rem;
+}
 
-    .card a {
-      color: #e5d6a3;
-      text-decoration: none;
-      font-size: 14px;
-    }
+footer {
+  text-align: center;
+  padding: 2rem;
+  font-size: 0.8rem;
+  opacity: 0.6;
+}
 
-    footer {
-      text-align: center;
-      padding: 40px;
-      font-size: 13px;
-      opacity: 0.6;
-    }
-  </style>
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  .hero-inner {
+    grid-template-columns: 1fr;
+  }
+
+  .hero {
+    padding: 3rem 2rem;
+  }
+}
+</style>
 </head>
 
 <body>
 
-  <section class="hero">
-    <div class="hero-content">
-      <h1>
-        European Interior
-        <em>Gallery</em>
-      </h1>
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-text">
+      <h1>European Interior<br><em>Gallery</em></h1>
       <p>Curated lighting & objects<br>for modern living.</p>
-      <a href="#collections" class="btn">Explore the Collection →</a>
+      <a href="#collections">Explore the Collection →</a>
     </div>
-  </section>
 
-  <section id="collections" class="section">
-    <h2>Unsere Kollektionen</h2>
-    <p>Curated lighting & objects for modern living.</p>
-
-    <div class="collections">
-      <div class="card">
-        <h3>Modern Classics</h3>
-        <a href="#">Ansehen →</a>
-      </div>
-      <div class="card">
-        <h3>Iconic Objects</h3>
-        <a href="#">Ansehen →</a>
-      </div>
-      <div class="card">
-        <h3>Statement Lighting</h3>
-        <a href="#">Ansehen →</a>
-      </div>
-      <div class="card">
-        <h3>Architectural Light</h3>
-        <a href="#">Ansehen →</a>
-      </div>
+    <div class="hero-image">
+      <img src="images/hero-background.jpg" alt="European Interior Gallery Hero Image">
     </div>
-  </section>
+  </div>
+</section>
 
-  <footer>
-    © European Interior Gallery
-  </footer>
+<section id="collections" class="collections">
+  <h2>Unsere Kollektionen</h2>
+  <p>Curated lighting & objects for modern living.</p>
+
+  <div class="cards">
+    <div class="card">
+      <strong>Modern Classics</strong><br>
+      <a href="#">Ansehen →</a>
+    </div>
+    <div class="card">
+      <strong>Iconic Objects</strong><br>
+      <a href="#">Ansehen →</a>
+    </div>
+    <div class="card">
+      <strong>Statement Lighting</strong><br>
+      <a href="#">Ansehen →</a>
+    </div>
+    <div class="card">
+      <strong>Architectural Light</strong><br>
+      <a href="#">Ansehen →</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  © European Interior Gallery
+</footer>
 
 </body>
 </html>
