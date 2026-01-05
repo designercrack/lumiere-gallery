@@ -31,7 +31,7 @@ body{
   content:"";
   position:absolute;
   inset:0;
-  background:url("images/hero-image.jpg") center center / contain no-repeat;
+  background:url("images/hero-background.jpg") center center / contain no-repeat;
   z-index:-1;
 }
 
@@ -73,7 +73,6 @@ body{
   display:flex;
   gap:24px;
   will-change:transform;
-  transition:transform .45s ease;
 }
 
 .card{
@@ -142,39 +141,68 @@ body{
 </section>
 
 <script>
-const images=[
-  "Lamp1.jpg","Lamp2.jpg","Lamp3.jpg","Lamp4.jpg","Lamp5.jpg",
-  "Lamp6.jpg","Lamp7.jpg","Lamp8.jpg","Lamp9.jpg","Lamp10.jpg"
+const images = [
+  "Lamp1.jpg", "Lamp2.jpg", "Lamp3.jpg", "Lamp4.jpg", "Lamp5.jpg",
+  "Lamp6.jpg", "Lamp7.jpg", "Lamp8.jpg", "Lamp9.jpg", "Lamp10.jpg"
 ];
 
-const track=document.getElementById("track");
-const size=260+24;
-let index=images.length;
+const track = document.getElementById("track");
+const cardWidth = 260;
+const gap = 24;
+const totalWidth = cardWidth + gap;
+let currentIndex = images.length;
+let isAnimating = false;
 
-/* build triple list for loop */
-[...images,...images,...images].forEach(src=>{
-  const d=document.createElement("div");
-  d.className="card";
-  const i=document.createElement("img");
-  i.src="images/"+src;
-  d.appendChild(i);
-  track.appendChild(d);
-});
-
-track.style.transform=`translateX(${-index*size}px)`;
-
-function move(dir){
-  track.style.transition="transform .45s ease";
-  index+=dir;
-  track.style.transform=`translateX(${-index*size}px)`;
-
-  track.addEventListener("transitionend",()=>{
-    track.style.transition="none";
-    if(index<=images.length/2) index+=images.length;
-    if(index>=images.length*2) index-=images.length;
-    track.style.transform=`translateX(${-index*size}px)`;
-  },{once:true});
+// Track initialisieren
+function initTrack() {
+  track.innerHTML = '';
+  
+  // Drei Kopien der Bilder für nahtlose Schleife
+  [...images, ...images, ...images].forEach(src => {
+    const card = document.createElement("div");
+    card.className = "card";
+    const img = document.createElement("img");
+    img.src = "images/" + src;
+    img.alt = "Lamp Design";
+    card.appendChild(img);
+    track.appendChild(card);
+  });
+  
+  updateTrackPosition();
 }
+
+// Position aktualisieren
+function updateTrackPosition() {
+  track.style.transform = `translateX(${-currentIndex * totalWidth}px)`;
+}
+
+// Bewegung steuern
+function move(direction) {
+  if (isAnimating) return;
+  
+  isAnimating = true;
+  track.style.transition = "transform 0.45s ease";
+  currentIndex += direction;
+  updateTrackPosition();
+  
+  track.addEventListener("transitionend", function resetPosition() {
+    track.style.transition = "none";
+    
+    if (currentIndex <= images.length) {
+      currentIndex += images.length;
+    }
+    if (currentIndex >= images.length * 2) {
+      currentIndex -= images.length;
+    }
+    
+    updateTrackPosition();
+    isAnimating = false;
+    track.removeEventListener("transitionend", resetPosition);
+  }, { once: true });
+}
+
+// Initialisierung
+initTrack();
 </script>
 
 </body>
