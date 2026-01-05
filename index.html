@@ -16,17 +16,23 @@
         body {
             color: #333;
             line-height: 1.6;
+            background-color: #fff;
         }
         
         /* Header und Navigation */
         .top-bar {
-            background-color: #f8f8f8;
+            background-color: #fff;
             padding: 15px 40px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             border-bottom: 1px solid #eee;
             font-size: 14px;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            background-color: rgba(255, 255, 255, 0.95);
         }
         
         .nav-links {
@@ -49,7 +55,7 @@
         /* Hauptbereich mit Hero-Bild */
         .hero {
             position: relative;
-            height: 85vh;
+            height: 100vh;
             background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), 
                         url('images/hero-background.jpg');
             background-size: cover;
@@ -61,6 +67,7 @@
             color: white;
             text-align: center;
             padding: 0 20px;
+            margin-top: 60px;
         }
         
         .hero h1 {
@@ -105,7 +112,7 @@
             color: #333;
         }
         
-        /* Kollektionen Bereich */
+        /* Kollektionen Bereich - SCROLLBAR */
         .collections {
             padding: 80px 40px;
             background-color: #fff;
@@ -127,23 +134,46 @@
         .section-header p {
             color: #777;
             max-width: 600px;
-            margin: 0 auto;
+            margin: 0 auto 40px;
         }
         
-        .collection-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
+        /* Scrollbare Galerie */
+        .collection-scroll {
+            display: flex;
+            overflow-x: auto;
             gap: 30px;
-            max-width: 1200px;
-            margin: 0 auto;
+            padding: 20px 0 40px 0;
+            scrollbar-width: thin;
+            scrollbar-color: #ddd #fff;
+        }
+        
+        /* Custom Scrollbar für Webkit-Browser */
+        .collection-scroll::-webkit-scrollbar {
+            height: 8px;
+        }
+        
+        .collection-scroll::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 4px;
+        }
+        
+        .collection-scroll::-webkit-scrollbar-thumb {
+            background: #ccc;
+            border-radius: 4px;
+        }
+        
+        .collection-scroll::-webkit-scrollbar-thumb:hover {
+            background: #aaa;
         }
         
         .collection-item {
+            flex: 0 0 auto;
+            width: 300px;
             text-align: center;
         }
         
         .collection-image {
-            height: 300px;
+            height: 400px;
             background-color: #f5f5f5;
             margin-bottom: 20px;
             display: flex;
@@ -168,7 +198,7 @@
             font-weight: 400;
             margin-bottom: 10px;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 2px;
         }
         
         .collection-link {
@@ -180,6 +210,8 @@
             border-bottom: 1px solid transparent;
             padding-bottom: 2px;
             transition: border-color 0.3s ease;
+            display: inline-block;
+            margin-top: 10px;
         }
         
         .collection-link:hover {
@@ -270,17 +302,17 @@
         }
         
         /* Responsive Design */
-        @media (max-width: 1024px) {
-            .collection-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-        
         @media (max-width: 768px) {
             .top-bar {
                 flex-direction: column;
                 gap: 15px;
                 padding: 15px 20px;
+                position: relative;
+            }
+            
+            .hero {
+                margin-top: 0;
+                height: 90vh;
             }
             
             .hero h1 {
@@ -292,9 +324,16 @@
                 letter-spacing: 5px;
             }
             
-            .collection-grid {
-                grid-template-columns: 1fr;
-                gap: 50px;
+            .collection-item {
+                width: 280px;
+            }
+            
+            .collection-image {
+                height: 350px;
+            }
+            
+            .collection-scroll {
+                gap: 20px;
             }
             
             .newsletter-form {
@@ -321,56 +360,74 @@
     <!-- Hero Section -->
     <section class="hero">
         <h1>EUROPEAN INTERIOR</h1>
-        <h2>Gallery</h2>
+        <h2>GALLERY</h2>
         <p>Curated lighting & objects for modern living</p>
-        <a href="#" class="cta-button">EXPLORE COLLECTION →</a>
+        <a href="#collections" class="cta-button">EXPLORE COLLECTION →</a>
     </section>
 
     <!-- Kollektionen Section -->
-    <section class="collections">
+    <section class="collections" id="collections">
         <div class="section-header">
-            <h3>Unsere Kollektionen</h3>
+            <h3>UNSERE KOLLEKTIONEN</h3>
             <p>Curated lighting & objects for modern living.</p>
         </div>
         
-        <div class="collection-grid">
+        <!-- Scrollbare Galerie -->
+        <div class="collection-scroll">
             <div class="collection-item">
                 <div class="collection-image">
                     <img src="images/Lamp6.jpg" alt="Modern Classics">
                 </div>
-                <h4>Modern Classics</h4>
-                <a href="#" class="collection-link">Ansehen →</a>
+                <h4>MODERN CLASSICS</h4>
+                <a href="#" class="collection-link">ANSEHEN →</a>
             </div>
             
             <div class="collection-item">
                 <div class="collection-image">
                     <img src="images/Lamp7.jpg" alt="Iconic Objects">
                 </div>
-                <h4>Iconic Objects</h4>
-                <a href="#" class="collection-link">Ansehen →</a>
+                <h4>ICONIC OBJECTS</h4>
+                <a href="#" class="collection-link">ANSEHEN →</a>
             </div>
             
             <div class="collection-item">
                 <div class="collection-image">
                     <img src="images/Lamp8.jpg" alt="Statement Lighting">
                 </div>
-                <h4>Statement Lighting</h4>
-                <a href="#" class="collection-link">Ansehen →</a>
+                <h4>STATEMENT LIGHTING</h4>
+                <a href="#" class="collection-link">ANSEHEN →</a>
             </div>
             
             <div class="collection-item">
                 <div class="collection-image">
                     <img src="images/Lamp9.jpg" alt="Architectural Light">
                 </div>
-                <h4>Architectural Light</h4>
-                <a href="#" class="collection-link">Ansehen →</a>
+                <h4>ARCHITECTURAL LIGHT</h4>
+                <a href="#" class="collection-link">ANSEHEN →</a>
+            </div>
+            
+            <!-- Weitere Items für Scroll-Effekt -->
+            <div class="collection-item">
+                <div class="collection-image">
+                    <img src="images/Lamp1.jpg" alt="Additional Design">
+                </div>
+                <h4>MINIMAL DESIGN</h4>
+                <a href="#" class="collection-link">ANSEHEN →</a>
+            </div>
+            
+            <div class="collection-item">
+                <div class="collection-image">
+                    <img src="images/Lamp2.jpg" alt="Scandinavian Style">
+                </div>
+                <h4>SCANDINAVIAN</h4>
+                <a href="#" class="collection-link">ANSEHEN →</a>
             </div>
         </div>
     </section>
 
     <!-- Shop Section -->
     <section class="shop-section">
-        <h3>Entdecken Sie unseren kuratierten Interior-Shop.</h3>
+        <h3>ENTDECKEN SIE UNSEREN KURATIERTEN INTERIOR-SHOP</h3>
         <p>Finden Sie ausgewählte Designstücke für Ihr Zuhause.</p>
     </section>
 
