@@ -127,10 +127,11 @@
             text-shadow: none;
         }
         
-        /* COLLECTIONS SECTION - MANUELLES ENDLOS-SCROLLEN */
+        /* COLLECTIONS SECTION - ENDLOSES KARUSSELL WIE EIN KREIS */
         .collections {
             background-color: #0c1f13; /* Dunkelgrün */
             padding: 100px 40px;
+            position: relative;
         }
         
         .section-header {
@@ -154,56 +155,23 @@
             margin: 0 auto;
         }
         
-        /* MANUELLES ENDLOS-SCROLLEN CONTAINER */
-        .manual-infinite-scroll {
+        /* KARUSSELL CONTAINER - WIE EIN KREIS */
+        .carousel-container {
             position: relative;
             width: 100%;
-            overflow-x: auto;
-            overflow-y: hidden;
+            overflow: hidden;
             padding: 30px 0 50px;
-            cursor: grab;
-            scrollbar-width: thin;
-            scrollbar-color: #1a3c27 #0c1f13;
         }
         
-        .manual-infinite-scroll:active {
-            cursor: grabbing;
-        }
-        
-        /* Custom Scrollbar */
-        .manual-infinite-scroll::-webkit-scrollbar {
-            height: 8px;
-        }
-        
-        .manual-infinite-scroll::-webkit-scrollbar-track {
-            background: #142a1b;
-            border-radius: 4px;
-        }
-        
-        .manual-infinite-scroll::-webkit-scrollbar-thumb {
-            background: #1a3c27;
-            border-radius: 4px;
-        }
-        
-        .manual-infinite-scroll::-webkit-scrollbar-thumb:hover {
-            background: #2a4d38;
-        }
-        
-        /* SCROLL INHALT - EXTRA BREIT FÜR ENDLOSES SCROLLEN */
-        .infinite-content {
+        /* ENDLOSES KARUSSELL MIT ALLEN 10 BILDERN + DUPLIKATEN */
+        .infinite-carousel {
             display: flex;
             gap: 30px;
             width: max-content;
-            padding: 0 20px;
         }
         
-        /* FÜR ECHTES ENDLOSES SCROLLEN: WIR DUPLIZIEREN DEN INHALT */
-        .infinite-content::after {
-            content: '';
-            display: none; /* Wird per JavaScript aktiviert */
-        }
-        
-        .collection-item {
+        /* ORIGINALE + DUPLIKATE FÜR ENDLOSEN EFFEKT */
+        .carousel-item {
             flex: 0 0 auto;
             width: 300px;
             text-align: center;
@@ -215,12 +183,12 @@
             user-select: none;
         }
         
-        .collection-item:hover {
+        .carousel-item:hover {
             transform: translateY(-5px);
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
         }
         
-        .collection-image {
+        .carousel-image {
             height: 350px;
             background-color: #1a3c27;
             margin-bottom: 25px;
@@ -228,18 +196,18 @@
             border-radius: 4px;
         }
         
-        .collection-image img {
+        .carousel-image img {
             width: 100%;
             height: 100%;
             object-fit: cover;
             transition: transform 0.5s ease;
         }
         
-        .collection-item:hover .collection-image img {
+        .carousel-item:hover .carousel-image img {
             transform: scale(1.05);
         }
         
-        .collection-name {
+        .carousel-name {
             font-size: 18px;
             font-weight: 400;
             letter-spacing: 1px;
@@ -248,7 +216,7 @@
             color: #ffffff;
         }
         
-        .collection-link {
+        .carousel-link {
             color: #a8d5b2; /* Helleres Grün für Links */
             text-decoration: none;
             font-size: 14px;
@@ -259,9 +227,67 @@
             transition: border-color 0.3s ease;
         }
         
-        .collection-link:hover {
+        .carousel-link:hover {
             border-bottom: 1px solid #a8d5b2;
             color: #ffffff;
+        }
+        
+        /* SCROLLBAR STYLING */
+        .carousel-scrollbar {
+            height: 8px;
+            background-color: #142a1b;
+            border-radius: 4px;
+            margin-top: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .scrollbar-thumb {
+            height: 100%;
+            background-color: #1a3c27;
+            border-radius: 4px;
+            width: 30%;
+            position: absolute;
+            left: 0;
+            cursor: grab;
+        }
+        
+        .scrollbar-thumb:active {
+            cursor: grabbing;
+            background-color: #2a4d38;
+        }
+        
+        /* SCROLL BUTTONS */
+        .scroll-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(26, 60, 39, 0.8);
+            color: white;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            font-size: 24px;
+            cursor: pointer;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        
+        .scroll-btn:hover {
+            background-color: rgba(42, 77, 56, 0.9);
+            transform: translateY(-50%) scale(1.1);
+        }
+        
+        .scroll-left {
+            left: 10px;
+        }
+        
+        .scroll-right {
+            right: 10px;
         }
         
         /* SHOP SECTION */
@@ -388,20 +414,26 @@
                 letter-spacing: 3px;
             }
             
-            .collection-item {
+            .carousel-item {
                 width: 280px;
             }
             
-            .collection-image {
+            .carousel-image {
                 height: 300px;
             }
             
-            .infinite-content {
+            .infinite-carousel {
                 gap: 20px;
             }
             
-            .manual-infinite-scroll {
+            .carousel-container {
                 padding: 20px 0 40px;
+            }
+            
+            .scroll-btn {
+                width: 40px;
+                height: 40px;
+                font-size: 18px;
             }
             
             .newsletter-form {
@@ -443,129 +475,185 @@
         <a href="#collections" class="cta-button">EXPLORE THE COLLECTION →</a>
     </section>
 
-    <!-- Collections Section - MANUELLES ENDLOS-SCROLLEN -->
+    <!-- Collections Section - ENDLOSES KARUSSELL WIE EIN KREIS -->
     <section class="collections" id="collections">
         <div class="section-header">
             <h3 class="section-title">Unsere Kollektionen</h3>
             <p class="section-description">Curated lighting & objects for modern living.</p>
         </div>
         
-        <!-- MANUELLES ENDLOS-SCROLLEN CONTAINER -->
-        <div class="manual-infinite-scroll" id="infiniteScroll">
-            <div class="infinite-content">
-                <!-- ORIGINALE BILDER -->
-                <div class="collection-item">
-                    <div class="collection-image">
+        <div class="carousel-container">
+            <button class="scroll-btn scroll-left" id="scrollLeft">←</button>
+            <button class="scroll-btn scroll-right" id="scrollRight">→</button>
+            
+            <div class="infinite-carousel" id="carousel">
+                <!-- ALLE 10 BILDER + DUPLIKATE FÜR ENDLOSEN KREIS -->
+                <!-- Modern Classics -->
+                <div class="carousel-item">
+                    <div class="carousel-image">
                         <img src="images/Lamp6.jpg" alt="Modern Classics">
                     </div>
-                    <h4 class="collection-name">Modern Classics</h4>
-                    <a href="#" class="collection-link">Ansehen →</a>
+                    <h4 class="carousel-name">Modern Classics</h4>
+                    <a href="#" class="carousel-link">Ansehen →</a>
                 </div>
                 
-                <div class="collection-item">
-                    <div class="collection-image">
+                <!-- Iconic Objects -->
+                <div class="carousel-item">
+                    <div class="carousel-image">
                         <img src="images/Lamp7.jpg" alt="Iconic Objects">
                     </div>
-                    <h4 class="collection-name">Iconic Objects</h4>
-                    <a href="#" class="collection-link">Ansehen →</a>
+                    <h4 class="carousel-name">Iconic Objects</h4>
+                    <a href="#" class="carousel-link">Ansehen →</a>
                 </div>
                 
-                <div class="collection-item">
-                    <div class="collection-image">
+                <!-- Statement Lighting -->
+                <div class="carousel-item">
+                    <div class="carousel-image">
                         <img src="images/Lamp8.jpg" alt="Statement Lighting">
                     </div>
-                    <h4 class="collection-name">Statement Lighting</h4>
-                    <a href="#" class="collection-link">Ansehen →</a>
+                    <h4 class="carousel-name">Statement Lighting</h4>
+                    <a href="#" class="carousel-link">Ansehen →</a>
                 </div>
                 
-                <div class="collection-item">
-                    <div class="collection-image">
+                <!-- Architectural Light -->
+                <div class="carousel-item">
+                    <div class="carousel-image">
                         <img src="images/Lamp9.jpg" alt="Architectural Light">
                     </div>
-                    <h4 class="collection-name">Architectural Light</h4>
-                    <a href="#" class="collection-link">Ansehen →</a>
+                    <h4 class="carousel-name">Architectural Light</h4>
+                    <a href="#" class="carousel-link">Ansehen →</a>
                 </div>
                 
-                <div class="collection-item">
-                    <div class="collection-image">
+                <!-- Minimal Design -->
+                <div class="carousel-item">
+                    <div class="carousel-image">
                         <img src="images/Lamp1.jpg" alt="Minimal Design">
                     </div>
-                    <h4 class="collection-name">Minimal Design</h4>
-                    <a href="#" class="collection-link">Ansehen →</a>
+                    <h4 class="carousel-name">Minimal Design</h4>
+                    <a href="#" class="carousel-link">Ansehen →</a>
                 </div>
                 
-                <div class="collection-item">
-                    <div class="collection-image">
+                <!-- Scandinavian -->
+                <div class="carousel-item">
+                    <div class="carousel-image">
                         <img src="images/Lamp2.jpg" alt="Scandinavian">
                     </div>
-                    <h4 class="collection-name">Scandinavian</h4>
-                    <a href="#" class="collection-link">Ansehen →</a>
+                    <h4 class="carousel-name">Scandinavian</h4>
+                    <a href="#" class="carousel-link">Ansehen →</a>
                 </div>
                 
-                <div class="collection-item">
-                    <div class="collection-image">
+                <!-- Industrial -->
+                <div class="carousel-item">
+                    <div class="carousel-image">
                         <img src="images/Lamp3.jpg" alt="Industrial">
                     </div>
-                    <h4 class="collection-name">Industrial</h4>
-                    <a href="#" class="collection-link">Ansehen →</a>
+                    <h4 class="carousel-name">Industrial</h4>
+                    <a href="#" class="carousel-link">Ansehen →</a>
                 </div>
                 
-                <div class="collection-item">
-                    <div class="collection-image">
+                <!-- Modern Luxury -->
+                <div class="carousel-item">
+                    <div class="carousel-image">
                         <img src="images/Lamp4.jpg" alt="Modern Luxury">
                     </div>
-                    <h4 class="collection-name">Modern Luxury</h4>
-                    <a href="#" class="collection-link">Ansehen →</a>
+                    <h4 class="carousel-name">Modern Luxury</h4>
+                    <a href="#" class="carousel-link">Ansehen →</a>
                 </div>
                 
-                <div class="collection-item">
-                    <div class="collection-image">
+                <!-- Contemporary -->
+                <div class="carousel-item">
+                    <div class="carousel-image">
                         <img src="images/Lamp5.jpg" alt="Contemporary">
                     </div>
-                    <h4 class="collection-name">Contemporary</h4>
-                    <a href="#" class="collection-link">Ansehen →</a>
+                    <h4 class="carousel-name">Contemporary</h4>
+                    <a href="#" class="carousel-link">Ansehen →</a>
                 </div>
                 
-                <div class="collection-item">
-                    <div class="collection-image">
+                <!-- Art Deco -->
+                <div class="carousel-item">
+                    <div class="carousel-image">
                         <img src="images/Lamp10.jpg" alt="Art Deco">
                     </div>
-                    <h4 class="collection-name">Art Deco</h4>
-                    <a href="#" class="collection-link">Ansehen →</a>
+                    <h4 class="carousel-name">Art Deco</h4>
+                    <a href="#" class="carousel-link">Ansehen →</a>
                 </div>
                 
-                <!-- DUPLIKATE FÜR ENDLOSES SCROLLEN (unsichtbar bis gebraucht) -->
-                <div class="collection-item duplicate">
-                    <div class="collection-image">
+                <!-- DUPLIKATE FÜR ENDLOSEN KREIS -->
+                <!-- Modern Classics (Duplikat) -->
+                <div class="carousel-item">
+                    <div class="carousel-image">
                         <img src="images/Lamp6.jpg" alt="Modern Classics">
                     </div>
-                    <h4 class="collection-name">Modern Classics</h4>
-                    <a href="#" class="collection-link">Ansehen →</a>
+                    <h4 class="carousel-name">Modern Classics</h4>
+                    <a href="#" class="carousel-link">Ansehen →</a>
                 </div>
                 
-                <div class="collection-item duplicate">
-                    <div class="collection-image">
+                <!-- Iconic Objects (Duplikat) -->
+                <div class="carousel-item">
+                    <div class="carousel-image">
                         <img src="images/Lamp7.jpg" alt="Iconic Objects">
                     </div>
-                    <h4 class="collection-name">Iconic Objects</h4>
-                    <a href="#" class="collection-link">Ansehen →</a>
+                    <h4 class="carousel-name">Iconic Objects</h4>
+                    <a href="#" class="carousel-link">Ansehen →</a>
                 </div>
                 
-                <div class="collection-item duplicate">
-                    <div class="collection-image">
+                <!-- Statement Lighting (Duplikat) -->
+                <div class="carousel-item">
+                    <div class="carousel-image">
                         <img src="images/Lamp8.jpg" alt="Statement Lighting">
                     </div>
-                    <h4 class="collection-name">Statement Lighting</h4>
-                    <a href="#" class="collection-link">Ansehen →</a>
+                    <h4 class="carousel-name">Statement Lighting</h4>
+                    <a href="#" class="carousel-link">Ansehen →</a>
                 </div>
                 
-                <div class="collection-item duplicate">
-                    <div class="collection-image">
+                <!-- Architectural Light (Duplikat) -->
+                <div class="carousel-item">
+                    <div class="carousel-image">
                         <img src="images/Lamp9.jpg" alt="Architectural Light">
                     </div>
-                    <h4 class="collection-name">Architectural Light</h4>
-                    <a href="#" class="collection-link">Ansehen →</a>
+                    <h4 class="carousel-name">Architectural Light</h4>
+                    <a href="#" class="carousel-link">Ansehen →</a>
                 </div>
+                
+                <!-- Minimal Design (Duplikat) -->
+                <div class="carousel-item">
+                    <div class="carousel-image">
+                        <img src="images/Lamp1.jpg" alt="Minimal Design">
+                    </div>
+                    <h4 class="carousel-name">Minimal Design</h4>
+                    <a href="#" class="carousel-link">Ansehen →</a>
+                </div>
+                
+                <!-- Scandinavian (Duplikat) -->
+                <div class="carousel-item">
+                    <div class="carousel-image">
+                        <img src="images/Lamp2.jpg" alt="Scandinavian">
+                    </div>
+                    <h4 class="carousel-name">Scandinavian</h4>
+                    <a href="#" class="carousel-link">Ansehen →</a>
+                </div>
+                
+                <!-- Industrial (Duplikat) -->
+                <div class="carousel-item">
+                    <div class="carousel-image">
+                        <img src="images/Lamp3.jpg" alt="Industrial">
+                    </div>
+                    <h4 class="carousel-name">Industrial</h4>
+                    <a href="#" class="carousel-link">Ansehen →</a>
+                </div>
+                
+                <!-- Modern Luxury (Duplikat) -->
+                <div class="carousel-item">
+                    <div class="carousel-image">
+                        <img src="images/Lamp4.jpg" alt="Modern Luxury">
+                    </div>
+                    <h4 class="carousel-name">Modern Luxury</h4>
+                    <a href="#" class="carousel-link">Ansehen →</a>
+                </div>
+            </div>
+            
+            <div class="carousel-scrollbar" id="scrollbar">
+                <div class="scrollbar-thumb" id="scrollbarThumb"></div>
             </div>
         </div>
     </section>
@@ -592,93 +680,190 @@
     </footer>
 
     <script>
-        // MANUELLES ENDLOS-SCROLLEN SCRIPT
+        // ENDLOSES KARUSSELL WIE EIN KREIS
         document.addEventListener('DOMContentLoaded', function() {
-            const scrollContainer = document.getElementById('infiniteScroll');
-            const content = scrollContainer.querySelector('.infinite-content');
-            const items = content.querySelectorAll('.collection-item');
-            const duplicates = content.querySelectorAll('.collection-item.duplicate');
+            const carousel = document.getElementById('carousel');
+            const scrollLeftBtn = document.getElementById('scrollLeft');
+            const scrollRightBtn = document.getElementById('scrollRight');
+            const scrollbar = document.getElementById('scrollbar');
+            const scrollbarThumb = document.getElementById('scrollbarThumb');
             
-            // Zuerst alle Duplikate ausblenden
-            duplicates.forEach(dup => {
-                dup.style.display = 'none';
+            const items = carousel.querySelectorAll('.carousel-item');
+            const itemWidth = items[0].offsetWidth + 30; // width + gap
+            const visibleItems = Math.floor(carousel.parentElement.offsetWidth / itemWidth);
+            const totalItems = items.length;
+            
+            let currentPosition = 0;
+            let isDragging = false;
+            let startX = 0;
+            let startScrollLeft = 0;
+            
+            // SCROLL BUTTONS
+            scrollLeftBtn.addEventListener('click', () => {
+                scrollCarousel(-1);
             });
             
-            // Funktion zum Hinzufügen von Duplikaten wenn nötig
-            function checkAndAddDuplicates() {
-                const containerWidth = scrollContainer.clientWidth;
-                const contentWidth = content.scrollWidth;
-                const scrollLeft = scrollContainer.scrollLeft;
-                const scrollRight = scrollLeft + containerWidth;
+            scrollRightBtn.addEventListener('click', () => {
+                scrollCarousel(1);
+            });
+            
+            function scrollCarousel(direction) {
+                const scrollAmount = itemWidth * visibleItems * 0.8;
+                currentPosition += direction * scrollAmount;
                 
-                // Wenn wir nah am Ende sind, Duplikate einblenden
-                if (scrollRight > contentWidth - containerWidth * 0.5) {
-                    duplicates.forEach(dup => {
-                        dup.style.display = 'block';
-                    });
+                // Wenn wir ans Ende kommen, springe zum Anfang (Kreis-Effekt)
+                if (currentPosition > (totalItems - visibleItems) * itemWidth) {
+                    currentPosition = 0;
+                } else if (currentPosition < 0) {
+                    currentPosition = (totalItems - visibleItems) * itemWidth;
                 }
                 
-                // Wenn wir wieder am Anfang sind, Duplikate ausblenden
-                if (scrollLeft < containerWidth * 0.5) {
-                    duplicates.forEach(dup => {
-                        dup.style.display = 'none';
-                    });
-                }
+                carousel.style.transform = `translateX(-${currentPosition}px)`;
+                updateScrollbar();
             }
             
-            // Event Listener für Scroll
-            scrollContainer.addEventListener('scroll', checkAndAddDuplicates);
+            // DRAG TO SCROLL
+            carousel.addEventListener('mousedown', startDrag);
+            carousel.addEventListener('touchstart', startDragTouch);
             
-            // Drag-to-Scroll Funktionalität
-            let isDown = false;
-            let startX;
-            let scrollLeftStart;
-            
-            scrollContainer.addEventListener('mousedown', (e) => {
-                isDown = true;
-                scrollContainer.classList.add('active');
-                startX = e.pageX - scrollContainer.offsetLeft;
-                scrollLeftStart = scrollContainer.scrollLeft;
-            });
-            
-            scrollContainer.addEventListener('mouseleave', () => {
-                isDown = false;
-                scrollContainer.classList.remove('active');
-            });
-            
-            scrollContainer.addEventListener('mouseup', () => {
-                isDown = false;
-                scrollContainer.classList.remove('active');
-            });
-            
-            scrollContainer.addEventListener('mousemove', (e) => {
-                if (!isDown) return;
+            function startDrag(e) {
+                isDragging = true;
+                startX = e.pageX;
+                startScrollLeft = currentPosition;
+                carousel.style.cursor = 'grabbing';
                 e.preventDefault();
-                const x = e.pageX - scrollContainer.offsetLeft;
-                const walk = (x - startX) * 2; // Scroll-Geschwindigkeit
-                scrollContainer.scrollLeft = scrollLeftStart - walk;
-            });
+            }
             
-            // Touch Support für Mobile
-            scrollContainer.addEventListener('touchstart', (e) => {
-                isDown = true;
-                startX = e.touches[0].pageX - scrollContainer.offsetLeft;
-                scrollLeftStart = scrollContainer.scrollLeft;
-            });
+            function startDragTouch(e) {
+                isDragging = true;
+                startX = e.touches[0].pageX;
+                startScrollLeft = currentPosition;
+                e.preventDefault();
+            }
             
-            scrollContainer.addEventListener('touchend', () => {
-                isDown = false;
-            });
+            document.addEventListener('mousemove', drag);
+            document.addEventListener('touchmove', dragTouch);
             
-            scrollContainer.addEventListener('touchmove', (e) => {
-                if (!isDown) return;
-                const x = e.touches[0].pageX - scrollContainer.offsetLeft;
+            function drag(e) {
+                if (!isDragging) return;
+                
+                const x = e.pageX;
                 const walk = (x - startX) * 2;
-                scrollContainer.scrollLeft = scrollLeftStart - walk;
+                let newPosition = startScrollLeft - walk;
+                
+                // Kreis-Effekt: Wenn über das Ende hinaus, springe zum Anfang
+                if (newPosition > (totalItems - visibleItems) * itemWidth) {
+                    newPosition = 0;
+                    startScrollLeft = 0;
+                    startX = e.pageX;
+                } else if (newPosition < 0) {
+                    newPosition = (totalItems - visibleItems) * itemWidth;
+                    startScrollLeft = newPosition;
+                    startX = e.pageX;
+                }
+                
+                currentPosition = newPosition;
+                carousel.style.transform = `translateX(-${currentPosition}px)`;
+                updateScrollbar();
+            }
+            
+            function dragTouch(e) {
+                if (!isDragging) return;
+                
+                const x = e.touches[0].pageX;
+                const walk = (x - startX) * 2;
+                let newPosition = startScrollLeft - walk;
+                
+                // Kreis-Effekt
+                if (newPosition > (totalItems - visibleItems) * itemWidth) {
+                    newPosition = 0;
+                    startScrollLeft = 0;
+                    startX = e.touches[0].pageX;
+                } else if (newPosition < 0) {
+                    newPosition = (totalItems - visibleItems) * itemWidth;
+                    startScrollLeft = newPosition;
+                    startX = e.touches[0].pageX;
+                }
+                
+                currentPosition = newPosition;
+                carousel.style.transform = `translateX(-${currentPosition}px)`;
+                updateScrollbar();
+            }
+            
+            document.addEventListener('mouseup', stopDrag);
+            document.addEventListener('touchend', stopDrag);
+            
+            function stopDrag() {
+                isDragging = false;
+                carousel.style.cursor = 'grab';
+            }
+            
+            // SCROLLBAR
+            function updateScrollbar() {
+                const maxScroll = (totalItems - visibleItems) * itemWidth;
+                const thumbWidth = (carousel.parentElement.offsetWidth / (maxScroll + carousel.parentElement.offsetWidth)) * 100;
+                const thumbPosition = (currentPosition / maxScroll) * (100 - thumbWidth);
+                
+                scrollbarThumb.style.width = `${thumbWidth}%`;
+                scrollbarThumb.style.left = `${thumbPosition}%`;
+            }
+            
+            // SCROLLBAR DRAGGING
+            scrollbarThumb.addEventListener('mousedown', startScrollbarDrag);
+            
+            function startScrollbarDrag(e) {
+                e.preventDefault();
+                const startX = e.pageX;
+                const startLeft = parseFloat(scrollbarThumb.style.left) || 0;
+                const thumbWidth = parseFloat(scrollbarThumb.style.width) || 30;
+                
+                function dragScrollbar(e) {
+                    const x = e.pageX;
+                    const scrollbarWidth = scrollbar.offsetWidth;
+                    const deltaX = x - startX;
+                    const deltaPercent = (deltaX / scrollbarWidth) * 100;
+                    
+                    let newLeft = startLeft + deltaPercent;
+                    newLeft = Math.max(0, Math.min(newLeft, 100 - thumbWidth));
+                    
+                    const maxScroll = (totalItems - visibleItems) * itemWidth;
+                    currentPosition = (newLeft / (100 - thumbWidth)) * maxScroll;
+                    
+                    carousel.style.transform = `translateX(-${currentPosition}px)`;
+                    scrollbarThumb.style.left = `${newLeft}%`;
+                }
+                
+                function stopScrollbarDrag() {
+                    document.removeEventListener('mousemove', dragScrollbar);
+                    document.removeEventListener('mouseup', stopScrollbarDrag);
+                }
+                
+                document.addEventListener('mousemove', dragScrollbar);
+                document.addEventListener('mouseup', stopScrollbarDrag);
+            }
+            
+            // MOUSEWHEEL SCROLLING
+            carousel.parentElement.addEventListener('wheel', function(e) {
+                e.preventDefault();
+                currentPosition += e.deltaY * 0.5;
+                
+                // Kreis-Effekt
+                const maxScroll = (totalItems - visibleItems) * itemWidth;
+                if (currentPosition > maxScroll) {
+                    currentPosition = 0;
+                } else if (currentPosition < 0) {
+                    currentPosition = maxScroll;
+                }
+                
+                carousel.style.transform = `translateX(-${currentPosition}px)`;
+                updateScrollbar();
             });
             
-            // Initial check
-            checkAndAddDuplicates();
+            // Initial update
+            updateScrollbar();
+            
+            // Set cursor
+            carousel.style.cursor = 'grab';
         });
     </script>
 </body>
