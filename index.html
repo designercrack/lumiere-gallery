@@ -127,10 +127,12 @@
             text-shadow: none;
         }
         
-        /* COLLECTIONS SECTION - EINZELNE SCROLLBARE REIHE */
+        /* COLLECTIONS SECTION - EINZELNE REIHE MIT ENDLOS-SCROLL */
         .collections {
             background-color: #0c1f13; /* Dunkelgrün */
             padding: 100px 40px;
+            position: relative;
+            overflow: hidden;
         }
         
         .section-header {
@@ -154,33 +156,35 @@
             margin: 0 auto;
         }
         
-        /* EINZELNE SCROLLBARE REIHE - MANUELL SCROLLBAR */
-        .single-scroll-row {
+        /* ENDLOS-SCROLL CONTAINER - EINE EINZIGE REIHE */
+        .infinite-scroll-container {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+            padding: 30px 0;
+        }
+        
+        /* EINE SCROLLBARE REIHE MIT DUPLIKAT FÜR ENDLOS-EFFEKT */
+        .infinite-scroll-row {
             display: flex;
-            overflow-x: auto;
             gap: 30px;
-            padding: 20px 10px 50px;
-            scrollbar-width: thin;
-            scrollbar-color: #1a3c27 #0c1f13;
+            width: max-content;
+            animation: infiniteScroll 40s linear infinite;
         }
         
-        /* Custom Scrollbar */
-        .single-scroll-row::-webkit-scrollbar {
-            height: 8px;
+        /* ANIMATION FÜR ENDLOS-SCROLL IN EINER REIHE */
+        @keyframes infiniteScroll {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(-50%);
+            }
         }
         
-        .single-scroll-row::-webkit-scrollbar-track {
-            background: #142a1b;
-            border-radius: 4px;
-        }
-        
-        .single-scroll-row::-webkit-scrollbar-thumb {
-            background: #1a3c27;
-            border-radius: 4px;
-        }
-        
-        .single-scroll-row::-webkit-scrollbar-thumb:hover {
-            background: #2a4d38;
+        /* PAUSE ANIMATION BEI HOVER */
+        .infinite-scroll-container:hover .infinite-scroll-row {
+            animation-play-state: paused;
         }
         
         .collection-item {
@@ -375,9 +379,13 @@
                 height: 300px;
             }
             
-            .single-scroll-row {
+            .infinite-scroll-row {
                 gap: 20px;
-                padding: 20px 10px 40px;
+            }
+            
+            /* Langsamere Animation auf Mobile */
+            .infinite-scroll-row {
+                animation: infiniteScroll 60s linear infinite;
             }
             
             .newsletter-form {
@@ -419,95 +427,178 @@
         <a href="#collections" class="cta-button">EXPLORE THE COLLECTION →</a>
     </section>
 
-    <!-- Collections Section - EINZELNE SCROLLBARE REIHE -->
+    <!-- Collections Section - EINZELNE REIHE MIT ENDLOS-SCROLL -->
     <section class="collections" id="collections">
         <div class="section-header">
             <h3 class="section-title">Unsere Kollektionen</h3>
             <p class="section-description">Curated lighting & objects for modern living.</p>
         </div>
         
-        <!-- EINZELNE SCROLLBARE REIHE - MANUELL SCROLLBAR -->
-        <div class="single-scroll-row">
-            <!-- 4 Hauptkategorien -->
-            <div class="collection-item">
-                <div class="collection-image">
-                    <img src="images/Lamp6.jpg" alt="Modern Classics">
+        <!-- ENDLOS-SCROLL CONTAINER - EINE EINZIGE REIHE -->
+        <div class="infinite-scroll-container">
+            <!-- EINE SCROLLBARE REIHE MIT DUPLIKATEN FÜR ENDLOS-EFFEKT -->
+            <div class="infinite-scroll-row">
+                <!-- ORIGINALE 10 BILDER -->
+                <div class="collection-item">
+                    <div class="collection-image">
+                        <img src="images/Lamp6.jpg" alt="Modern Classics">
+                    </div>
+                    <h4 class="collection-name">Modern Classics</h4>
+                    <a href="#" class="collection-link">Ansehen →</a>
                 </div>
-                <h4 class="collection-name">Modern Classics</h4>
-                <a href="#" class="collection-link">Ansehen →</a>
-            </div>
-            
-            <div class="collection-item">
-                <div class="collection-image">
-                    <img src="images/Lamp7.jpg" alt="Iconic Objects">
+                
+                <div class="collection-item">
+                    <div class="collection-image">
+                        <img src="images/Lamp7.jpg" alt="Iconic Objects">
+                    </div>
+                    <h4 class="collection-name">Iconic Objects</h4>
+                    <a href="#" class="collection-link">Ansehen →</a>
                 </div>
-                <h4 class="collection-name">Iconic Objects</h4>
-                <a href="#" class="collection-link">Ansehen →</a>
-            </div>
-            
-            <div class="collection-item">
-                <div class="collection-image">
-                    <img src="images/Lamp8.jpg" alt="Statement Lighting">
+                
+                <div class="collection-item">
+                    <div class="collection-image">
+                        <img src="images/Lamp8.jpg" alt="Statement Lighting">
+                    </div>
+                    <h4 class="collection-name">Statement Lighting</h4>
+                    <a href="#" class="collection-link">Ansehen →</a>
                 </div>
-                <h4 class="collection-name">Statement Lighting</h4>
-                <a href="#" class="collection-link">Ansehen →</a>
-            </div>
-            
-            <div class="collection-item">
-                <div class="collection-image">
-                    <img src="images/Lamp9.jpg" alt="Architectural Light">
+                
+                <div class="collection-item">
+                    <div class="collection-image">
+                        <img src="images/Lamp9.jpg" alt="Architectural Light">
+                    </div>
+                    <h4 class="collection-name">Architectural Light</h4>
+                    <a href="#" class="collection-link">Ansehen →</a>
                 </div>
-                <h4 class="collection-name">Architectural Light</h4>
-                <a href="#" class="collection-link">Ansehen →</a>
-            </div>
-            
-            <!-- WEITERE BILDER FÜR SCROLL-EFFEKT -->
-            <div class="collection-item">
-                <div class="collection-image">
-                    <img src="images/Lamp1.jpg" alt="Minimal Design">
+                
+                <div class="collection-item">
+                    <div class="collection-image">
+                        <img src="images/Lamp1.jpg" alt="Minimal Design">
+                    </div>
+                    <h4 class="collection-name">Minimal Design</h4>
+                    <a href="#" class="collection-link">Ansehen →</a>
                 </div>
-                <h4 class="collection-name">Minimal Design</h4>
-                <a href="#" class="collection-link">Ansehen →</a>
-            </div>
-            
-            <div class="collection-item">
-                <div class="collection-image">
-                    <img src="images/Lamp2.jpg" alt="Scandinavian">
+                
+                <div class="collection-item">
+                    <div class="collection-image">
+                        <img src="images/Lamp2.jpg" alt="Scandinavian">
+                    </div>
+                    <h4 class="collection-name">Scandinavian</h4>
+                    <a href="#" class="collection-link">Ansehen →</a>
                 </div>
-                <h4 class="collection-name">Scandinavian</h4>
-                <a href="#" class="collection-link">Ansehen →</a>
-            </div>
-            
-            <div class="collection-item">
-                <div class="collection-image">
-                    <img src="images/Lamp3.jpg" alt="Industrial">
+                
+                <div class="collection-item">
+                    <div class="collection-image">
+                        <img src="images/Lamp3.jpg" alt="Industrial">
+                    </div>
+                    <h4 class="collection-name">Industrial</h4>
+                    <a href="#" class="collection-link">Ansehen →</a>
                 </div>
-                <h4 class="collection-name">Industrial</h4>
-                <a href="#" class="collection-link">Ansehen →</a>
-            </div>
-            
-            <div class="collection-item">
-                <div class="collection-image">
-                    <img src="images/Lamp4.jpg" alt="Modern Luxury">
+                
+                <div class="collection-item">
+                    <div class="collection-image">
+                        <img src="images/Lamp4.jpg" alt="Modern Luxury">
+                    </div>
+                    <h4 class="collection-name">Modern Luxury</h4>
+                    <a href="#" class="collection-link">Ansehen →</a>
                 </div>
-                <h4 class="collection-name">Modern Luxury</h4>
-                <a href="#" class="collection-link">Ansehen →</a>
-            </div>
-            
-            <div class="collection-item">
-                <div class="collection-image">
-                    <img src="images/Lamp5.jpg" alt="Contemporary">
+                
+                <div class="collection-item">
+                    <div class="collection-image">
+                        <img src="images/Lamp5.jpg" alt="Contemporary">
+                    </div>
+                    <h4 class="collection-name">Contemporary</h4>
+                    <a href="#" class="collection-link">Ansehen →</a>
                 </div>
-                <h4 class="collection-name">Contemporary</h4>
-                <a href="#" class="collection-link">Ansehen →</a>
-            </div>
-            
-            <div class="collection-item">
-                <div class="collection-image">
-                    <img src="images/Lamp10.jpg" alt="Art Deco">
+                
+                <div class="collection-item">
+                    <div class="collection-image">
+                        <img src="images/Lamp10.jpg" alt="Art Deco">
+                    </div>
+                    <h4 class="collection-name">Art Deco</h4>
+                    <a href="#" class="collection-link">Ansehen →</a>
                 </div>
-                <h4 class="collection-name">Art Deco</h4>
-                <a href="#" class="collection-link">Ansehen →</a>
+                
+                <!-- DUPLIKATE DER 10 BILDER FÜR ENDLOS-EFFEKT -->
+                <div class="collection-item">
+                    <div class="collection-image">
+                        <img src="images/Lamp6.jpg" alt="Modern Classics">
+                    </div>
+                    <h4 class="collection-name">Modern Classics</h4>
+                    <a href="#" class="collection-link">Ansehen →</a>
+                </div>
+                
+                <div class="collection-item">
+                    <div class="collection-image">
+                        <img src="images/Lamp7.jpg" alt="Iconic Objects">
+                    </div>
+                    <h4 class="collection-name">Iconic Objects</h4>
+                    <a href="#" class="collection-link">Ansehen →</a>
+                </div>
+                
+                <div class="collection-item">
+                    <div class="collection-image">
+                        <img src="images/Lamp8.jpg" alt="Statement Lighting">
+                    </div>
+                    <h4 class="collection-name">Statement Lighting</h4>
+                    <a href="#" class="collection-link">Ansehen →</a>
+                </div>
+                
+                <div class="collection-item">
+                    <div class="collection-image">
+                        <img src="images/Lamp9.jpg" alt="Architectural Light">
+                    </div>
+                    <h4 class="collection-name">Architectural Light</h4>
+                    <a href="#" class="collection-link">Ansehen →</a>
+                </div>
+                
+                <div class="collection-item">
+                    <div class="collection-image">
+                        <img src="images/Lamp1.jpg" alt="Minimal Design">
+                    </div>
+                    <h4 class="collection-name">Minimal Design</h4>
+                    <a href="#" class="collection-link">Ansehen →</a>
+                </div>
+                
+                <div class="collection-item">
+                    <div class="collection-image">
+                        <img src="images/Lamp2.jpg" alt="Scandinavian">
+                    </div>
+                    <h4 class="collection-name">Scandinavian</h4>
+                    <a href="#" class="collection-link">Ansehen →</a>
+                </div>
+                
+                <div class="collection-item">
+                    <div class="collection-image">
+                        <img src="images/Lamp3.jpg" alt="Industrial">
+                    </div>
+                    <h4 class="collection-name">Industrial</h4>
+                    <a href="#" class="collection-link">Ansehen →</a>
+                </div>
+                
+                <div class="collection-item">
+                    <div class="collection-image">
+                        <img src="images/Lamp4.jpg" alt="Modern Luxury">
+                    </div>
+                    <h4 class="collection-name">Modern Luxury</h4>
+                    <a href="#" class="collection-link">Ansehen →</a>
+                </div>
+                
+                <div class="collection-item">
+                    <div class="collection-image">
+                        <img src="images/Lamp5.jpg" alt="Contemporary">
+                    </div>
+                    <h4 class="collection-name">Contemporary</h4>
+                    <a href="#" class="collection-link">Ansehen →</a>
+                </div>
+                
+                <div class="collection-item">
+                    <div class="collection-image">
+                        <img src="images/Lamp10.jpg" alt="Art Deco">
+                    </div>
+                    <h4 class="collection-name">Art Deco</h4>
+                    <a href="#" class="collection-link">Ansehen →</a>
+                </div>
             </div>
         </div>
     </section>
