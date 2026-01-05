@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EUROPEAN INTERIOR Gallery</title>
     <style>
-        /* RESET & BASIS */
+        /* RESET & BASIS - DUNKELGRÜN */
         * {
             margin: 0;
             padding: 0;
@@ -14,21 +14,23 @@
         
         body {
             font-family: 'Helvetica Neue', Arial, sans-serif;
-            color: #1a1a1a;
+            color: #ffffff;
             line-height: 1.6;
-            background-color: #f5f5f5; /* Hellgrauer Hintergrund für die gesamte Seite */
-            max-width: 1600px;
-            margin: 0 auto;
+            background-color: #1a3c27; /* DUNKELGRÜN - Hauptfarbe */
+            min-height: 100vh;
         }
         
-        /* NAVIGATION */
+        /* NAVIGATION - Dunkelgrün angepasst */
         .main-nav {
-            background-color: #fff;
+            background-color: #152c1e; /* Etwas dunkleres Grün */
             padding: 20px 40px;
-            border-bottom: 1px solid #e0e0e0;
+            border-bottom: 1px solid #2a4d38;
             display: flex;
             justify-content: center;
             align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
         }
         
         .nav-links {
@@ -38,7 +40,7 @@
         
         .nav-links a {
             text-decoration: none;
-            color: #333;
+            color: #ffffff;
             font-size: 14px;
             font-weight: 500;
             letter-spacing: 1px;
@@ -49,21 +51,30 @@
         }
         
         .nav-links a:hover {
-            color: #000;
-            border-bottom: 2px solid #000;
+            color: #c8e6c9; /* Helleres Grün für Hover */
+            border-bottom: 2px solid #c8e6c9;
         }
         
-        /* SEPARATOR FÜR NAV LINKS */
+        /* SEPARATOR */
         .nav-separator {
-            color: #ccc;
+            color: #4a6b57;
             font-weight: 300;
         }
         
-        /* HERO SECTION */
+        /* HERO SECTION - MIT BILD */
         .hero {
-            background-color: #f0f0f0; /* Heller Hintergrund für Hero */
-            padding: 120px 40px 100px;
+            position: relative;
+            height: 90vh;
+            background: linear-gradient(rgba(26, 60, 39, 0.7), rgba(26, 60, 39, 0.7)), 
+                        url('images/hero-background.jpg');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
             text-align: center;
+            padding: 0 20px;
         }
         
         .hero-title {
@@ -72,7 +83,7 @@
             letter-spacing: 8px;
             text-transform: uppercase;
             margin-bottom: 10px;
-            color: #1a1a1a;
+            color: #ffffff;
         }
         
         .hero-subtitle {
@@ -81,13 +92,13 @@
             letter-spacing: 4px;
             text-transform: uppercase;
             margin-bottom: 30px;
-            color: #1a1a1a;
+            color: #ffffff;
         }
         
         .hero-description {
             font-size: 16px;
             font-weight: 300;
-            color: #666;
+            color: #e0e0e0;
             max-width: 500px;
             margin: 0 auto 40px;
             line-height: 1.8;
@@ -97,8 +108,8 @@
             display: inline-block;
             padding: 15px 40px;
             background-color: transparent;
-            color: #1a1a1a;
-            border: 2px solid #1a1a1a;
+            color: #ffffff;
+            border: 2px solid #ffffff;
             text-decoration: none;
             font-size: 14px;
             letter-spacing: 2px;
@@ -107,13 +118,13 @@
         }
         
         .cta-button:hover {
-            background-color: #1a1a1a;
-            color: #fff;
+            background-color: #ffffff;
+            color: #1a3c27; /* Dunkelgrün bei Hover */
         }
         
-        /* COLLECTIONS SECTION */
+        /* COLLECTIONS SECTION - SCROLLBAR */
         .collections {
-            background-color: #fff; /* Weißer Hintergrund für Collections */
+            background-color: #1a3c27; /* Dunkelgrün */
             padding: 100px 40px;
         }
         
@@ -128,35 +139,67 @@
             letter-spacing: 2px;
             text-transform: uppercase;
             margin-bottom: 15px;
-            color: #1a1a1a;
+            color: #ffffff;
         }
         
         .section-description {
             font-size: 16px;
-            color: #666;
+            color: #c8e6c9; /* Helleres Grün */
             max-width: 500px;
             margin: 0 auto;
         }
         
-        /* COLLECTION GRID (4 ITEMS) */
-        .collection-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 40px;
-            max-width: 1200px;
-            margin: 0 auto;
+        /* SCROLLBARE GALERIE - ALLE 10 BILDER */
+        .collection-scroll {
+            display: flex;
+            overflow-x: auto;
+            gap: 30px;
+            padding: 30px 20px 50px;
+            scrollbar-width: thin;
+            scrollbar-color: #4a6b57 #1a3c27;
+        }
+        
+        /* Custom Scrollbar */
+        .collection-scroll::-webkit-scrollbar {
+            height: 8px;
+        }
+        
+        .collection-scroll::-webkit-scrollbar-track {
+            background: #2a4d38;
+            border-radius: 4px;
+        }
+        
+        .collection-scroll::-webkit-scrollbar-thumb {
+            background: #4a6b57;
+            border-radius: 4px;
+        }
+        
+        .collection-scroll::-webkit-scrollbar-thumb:hover {
+            background: #5a7b67;
         }
         
         .collection-item {
+            flex: 0 0 auto;
+            width: 300px;
             text-align: center;
+            background-color: #2a4d38; /* Dunkelgrüne Karten */
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .collection-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
         }
         
         .collection-image {
-            height: 400px;
-            background-color: #f9f9f9;
+            height: 350px;
+            background-color: #3a5d48;
             margin-bottom: 25px;
             overflow: hidden;
-            position: relative;
+            border-radius: 4px;
         }
         
         .collection-image img {
@@ -167,7 +210,7 @@
         }
         
         .collection-item:hover .collection-image img {
-            transform: scale(1.03);
+            transform: scale(1.05);
         }
         
         .collection-name {
@@ -176,11 +219,11 @@
             letter-spacing: 1px;
             text-transform: uppercase;
             margin-bottom: 15px;
-            color: #1a1a1a;
+            color: #ffffff;
         }
         
         .collection-link {
-            color: #1a1a1a;
+            color: #c8e6c9; /* Helleres Grün für Links */
             text-decoration: none;
             font-size: 14px;
             letter-spacing: 1px;
@@ -191,15 +234,16 @@
         }
         
         .collection-link:hover {
-            border-bottom: 1px solid #1a1a1a;
+            border-bottom: 1px solid #c8e6c9;
+            color: #ffffff;
         }
         
         /* SHOP SECTION */
         .shop-section {
-            background-color: #f5f5f5; /* Hellgrau wie Gesamthintergrund */
+            background-color: #152c1e; /* Dunkleres Grün */
             padding: 80px 40px;
             text-align: center;
-            border-top: 1px solid #e0e0e0;
+            border-top: 1px solid #2a4d38;
         }
         
         .shop-title {
@@ -208,15 +252,15 @@
             letter-spacing: 2px;
             text-transform: uppercase;
             margin-bottom: 20px;
-            color: #1a1a1a;
+            color: #ffffff;
         }
         
         /* NEWSLETTER SECTION */
         .newsletter {
-            background-color: #fff; /* Weißer Hintergrund für Newsletter */
+            background-color: #1a3c27; /* Dunkelgrün */
             padding: 80px 40px;
             text-align: center;
-            border-top: 1px solid #e0e0e0;
+            border-top: 1px solid #2a4d38;
         }
         
         .newsletter-title {
@@ -225,12 +269,12 @@
             letter-spacing: 2px;
             text-transform: uppercase;
             margin-bottom: 20px;
-            color: #1a1a1a;
+            color: #ffffff;
         }
         
         .newsletter-description {
             font-size: 16px;
-            color: #666;
+            color: #c8e6c9;
             max-width: 600px;
             margin: 0 auto 40px;
         }
@@ -245,48 +289,48 @@
         .newsletter-input {
             flex-grow: 1;
             padding: 15px 20px;
-            border: 1px solid #ddd;
+            background-color: #2a4d38;
+            border: 1px solid #4a6b57;
             border-right: none;
             font-size: 14px;
             outline: none;
-            color: #666;
+            color: #ffffff;
+        }
+        
+        .newsletter-input::placeholder {
+            color: #a0c0a8;
         }
         
         .newsletter-button {
             padding: 15px 30px;
-            background-color: #1a1a1a;
-            color: white;
-            border: 1px solid #1a1a1a;
+            background-color: #c8e6c9; /* Helleres Grün */
+            color: #1a3c27; /* Dunkelgrüner Text */
+            border: 1px solid #c8e6c9;
             font-size: 14px;
             letter-spacing: 1px;
             text-transform: uppercase;
             cursor: pointer;
-            transition: background-color 0.3s ease;
+            transition: all 0.3s ease;
+            font-weight: 500;
         }
         
         .newsletter-button:hover {
-            background-color: #333;
+            background-color: #ffffff;
+            border-color: #ffffff;
         }
         
         /* FOOTER */
         footer {
-            background-color: #f5f5f5; /* Hellgrau wie Gesamthintergrund */
+            background-color: #152c1e; /* Dunkleres Grün */
             padding: 30px 40px;
             text-align: center;
-            border-top: 1px solid #e0e0e0;
-            color: #666;
+            border-top: 1px solid #2a4d38;
+            color: #a0c0a8;
             font-size: 12px;
             letter-spacing: 0.5px;
         }
         
         /* RESPONSIVE DESIGN */
-        @media (max-width: 1024px) {
-            .collection-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 30px;
-            }
-        }
-        
         @media (max-width: 768px) {
             .main-nav {
                 padding: 15px 20px;
@@ -303,7 +347,8 @@
             }
             
             .hero {
-                padding: 80px 20px 60px;
+                height: 80vh;
+                padding: 0 20px;
             }
             
             .hero-title {
@@ -316,14 +361,17 @@
                 letter-spacing: 3px;
             }
             
-            .collection-grid {
-                grid-template-columns: 1fr;
-                gap: 50px;
-                max-width: 400px;
+            .collection-item {
+                width: 280px;
             }
             
             .collection-image {
-                height: 350px;
+                height: 300px;
+            }
+            
+            .collection-scroll {
+                gap: 20px;
+                padding: 20px 15px 40px;
             }
             
             .newsletter-form {
@@ -331,7 +379,7 @@
             }
             
             .newsletter-input {
-                border-right: 1px solid #ddd;
+                border-right: 1px solid #4a6b57;
                 border-bottom: none;
                 margin-bottom: 10px;
             }
@@ -350,22 +398,24 @@
         </div>
     </nav>
 
-    <!-- Hero Section -->
+    <!-- Hero Section MIT BILD -->
     <section class="hero">
         <h1 class="hero-title">EUROPEAN INTERIOR</h1>
         <h2 class="hero-subtitle">Gallery</h2>
         <p class="hero-description">Curated lighting & objects for modern living</p>
-        <a href="#" class="cta-button">Explore the Collection →</a>
+        <a href="#collections" class="cta-button">Explore the Collection →</a>
     </section>
 
-    <!-- Collections Section -->
-    <section class="collections">
+    <!-- Collections Section - SCROLLBAR -->
+    <section class="collections" id="collections">
         <div class="section-header">
             <h3 class="section-title">Unsere Kollektionen</h3>
             <p class="section-description">Curated lighting & objects for modern living.</p>
         </div>
         
-        <div class="collection-grid">
+        <!-- SCROLLBARE GALERIE MIT ALLEN BILDERN -->
+        <div class="collection-scroll">
+            <!-- 4 Hauptkategorien -->
             <div class="collection-item">
                 <div class="collection-image">
                     <img src="images/Lamp6.jpg" alt="Modern Classics">
@@ -395,6 +445,55 @@
                     <img src="images/Lamp9.jpg" alt="Architectural Light">
                 </div>
                 <h4 class="collection-name">Architectural Light</h4>
+                <a href="#" class="collection-link">Ansehen →</a>
+            </div>
+            
+            <!-- WEITERE 6 BILDER -->
+            <div class="collection-item">
+                <div class="collection-image">
+                    <img src="images/Lamp1.jpg" alt="Design Lampe 1">
+                </div>
+                <h4 class="collection-name">Minimal Design</h4>
+                <a href="#" class="collection-link">Ansehen →</a>
+            </div>
+            
+            <div class="collection-item">
+                <div class="collection-image">
+                    <img src="images/Lamp2.jpg" alt="Design Lampe 2">
+                </div>
+                <h4 class="collection-name">Scandinavian</h4>
+                <a href="#" class="collection-link">Ansehen →</a>
+            </div>
+            
+            <div class="collection-item">
+                <div class="collection-image">
+                    <img src="images/Lamp3.jpg" alt="Design Lampe 3">
+                </div>
+                <h4 class="collection-name">Industrial</h4>
+                <a href="#" class="collection-link">Ansehen →</a>
+            </div>
+            
+            <div class="collection-item">
+                <div class="collection-image">
+                    <img src="images/Lamp4.jpg" alt="Design Lampe 4">
+                </div>
+                <h4 class="collection-name">Modern Luxury</h4>
+                <a href="#" class="collection-link">Ansehen →</a>
+            </div>
+            
+            <div class="collection-item">
+                <div class="collection-image">
+                    <img src="images/Lamp5.jpg" alt="Design Lampe 5">
+                </div>
+                <h4 class="collection-name">Contemporary</h4>
+                <a href="#" class="collection-link">Ansehen →</a>
+            </div>
+            
+            <div class="collection-item">
+                <div class="collection-image">
+                    <img src="images/Lamp10.jpg" alt="Design Lampe 10">
+                </div>
+                <h4 class="collection-name">Art Deco</h4>
                 <a href="#" class="collection-link">Ansehen →</a>
             </div>
         </div>
