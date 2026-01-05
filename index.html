@@ -31,7 +31,8 @@ body{
   content:"";
   position:absolute;
   inset:0;
-  background:url("images/hero-background.jpg") center center / contain no-repeat;
+  /* WICHTIG: Kein images/ Ordner! */
+  background:url("hero-background.jpg") center center / contain no-repeat;
   z-index:-1;
 }
 
@@ -162,7 +163,8 @@ function initTrack() {
     const card = document.createElement("div");
     card.className = "card";
     const img = document.createElement("img");
-    img.src = "images/" + src;
+    // WICHTIG: Kein images/ Ordner!
+    img.src = src;
     img.alt = "Lamp Design";
     card.appendChild(img);
     track.appendChild(card);
