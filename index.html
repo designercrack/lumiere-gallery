@@ -1,65 +1,67 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>LUMIÈRE</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 
 <style>
-:root{
-  --bg:#0b1412;
-  --gold:#c6a86d;
-  --text:#eae6dc;
-  --muted:#9a968c;
-}
-*{box-sizing:border-box}
+/* ===== RESET ===== */
+*{box-sizing:border-box;margin:0;padding:0}
 body{
-  margin:0;
-  background:var(--bg);
-  color:var(--text);
-  font-family:Inter,sans-serif;
+  background:#0e1412;
+  color:#e8e6de;
+  font-family:Inter,system-ui,sans-serif;
   overflow-x:hidden;
 }
 
-/* HERO */
+/* ===== HERO ===== */
 .hero{
-  height:90vh;
-  background:
-    linear-gradient(90deg,rgba(0,0,0,.65),rgba(0,0,0,.15)),
-    url("images/hero-background.jpg") center/cover no-repeat;
+  min-height:90vh;
   display:flex;
   align-items:center;
+  padding:0 8vw;
+  background:#0e1412;
 }
-.hero-inner{
-  padding-left:8vw;
-  max-width:720px;
+.hero img{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:contain; /* WICHTIG: Lampe komplett sichtbar */
+  z-index:-1;
+}
+.hero-content{
+  max-width:700px;
 }
 .hero h1{
   font-family:"Playfair Display",serif;
-  font-size:4.2rem;
+  font-size:4rem;
   letter-spacing:.08em;
+  margin-bottom:1rem;
 }
 .hero p{
-  color:var(--muted);
-  margin:1rem 0 2.5rem;
+  color:#bfbab0;
+  margin-bottom:2.5rem;
 }
 .hero a{
-  border:1px solid var(--gold);
-  color:var(--gold);
+  display:inline-block;
   padding:14px 36px;
+  border:1px solid #c6a86d;
+  color:#c6a86d;
   text-decoration:none;
-  letter-spacing:.12em;
+  letter-spacing:.14em;
 }
 .hero a:hover{
-  background:var(--gold);
+  background:#c6a86d;
   color:#111;
 }
 
-/* CAROUSEL */
-.carousel-section{
-  padding:80px 70px;
+/* ===== CAROUSEL ===== */
+.carousel{
+  padding:90px 70px;
   position:relative;
 }
 .viewport{
@@ -68,14 +70,14 @@ body{
 .track{
   display:flex;
   gap:24px;
-  will-change:transform;
+  transition:transform .45s ease;
 }
 .card{
   width:260px;
   aspect-ratio:1/1;
+  flex-shrink:0;
   border-radius:6px;
   overflow:hidden;
-  flex-shrink:0;
 }
 .card img{
   width:100%;
@@ -84,43 +86,48 @@ body{
   display:block;
 }
 
-/* ARROWS */
+/* ===== ARROWS ===== */
 .arrow{
   position:absolute;
   top:50%;
   transform:translateY(-50%);
   width:46px;
   height:46px;
-  border:1px solid var(--gold);
+  border:1px solid #c6a86d;
   background:rgba(0,0,0,.6);
-  color:var(--gold);
+  color:#c6a86d;
   font-size:22px;
   cursor:pointer;
+  z-index:10;
 }
 .arrow:hover{
-  background:var(--gold);
+  background:#c6a86d;
   color:#111;
 }
-.arrow.left{left:20px}
-.arrow.right{right:20px}
+.arrow.left{left:18px}
+.arrow.right{right:18px}
 
 @media(max-width:768px){
-  .hero h1{font-size:2.8rem}
+  .hero h1{font-size:2.6rem}
+  .carousel{padding:60px 20px}
 }
 </style>
 </head>
 
 <body>
 
+<!-- ===== HERO ===== -->
 <section class="hero">
-  <div class="hero-inner">
+  <img src="images/hero-image.jpg" alt="Hero Lampe">
+  <div class="hero-content">
     <h1>LUMIÈRE</h1>
-    <p>Curated European Lighting Objects</p>
-    <a href="#">Explore the Collection</a>
+    <p>European Interior Gallery<br>Created Lighting & Objects for Modern Living</p>
+    <a href="#collection">EXPLORE COLLECTION</a>
   </div>
 </section>
 
-<section class="carousel-section">
+<!-- ===== CAROUSEL ===== -->
+<section class="carousel" id="collection">
   <button class="arrow left">&#8249;</button>
   <div class="viewport">
     <div class="track" id="track"></div>
@@ -129,57 +136,44 @@ body{
 </section>
 
 <script>
-const images=[
+/* ===== IMAGE LIST ===== */
+const images = [
   "Lamp1.jpg","Lamp2.jpg","Lamp3.jpg","Lamp4.jpg","Lamp5.jpg",
   "Lamp6.jpg","Lamp7.jpg","Lamp8.jpg","Lamp9.jpg","Lamp10.jpg"
 ];
 
-// 🔒 PRELOAD ALLE BILDER
-function preload(list){
-  return Promise.all(list.map(src=>{
-    return new Promise(resolve=>{
-      const img=new Image();
-      img.src="images/"+src;
-      img.onload=resolve;
-    });
-  }));
-}
+/* ===== BUILD TRACK (virtuell, kein Leerraum) ===== */
+const track = document.getElementById("track");
+let index = 0;
 
-preload(images).then(initCarousel);
-
-function initCarousel(){
-  const track=document.getElementById("track");
-  const visible=[...images,...images,...images];
-
-  visible.forEach(src=>{
-    const d=document.createElement("div");
-    d.className="card";
-    const img=document.createElement("img");
-    img.src="images/"+src;
-    d.appendChild(img);
-    track.appendChild(d);
-  });
-
-  const step=260+24;
-  let pos=images.length*step;
-  track.style.transform=`translateX(${-pos}px)`;
-
-  function move(dir){
-    track.style.transition="transform .45s ease";
-    pos+=dir*step;
-    track.style.transform=`translateX(${-pos}px)`;
-
-    track.addEventListener("transitionend",()=>{
-      track.style.transition="none";
-      if(pos<=step) pos+=images.length*step;
-      if(pos>=images.length*step*2) pos-=images.length*step;
-      track.style.transform=`translateX(${-pos}px)`;
-    },{once:true});
+function render(){
+  track.innerHTML = "";
+  for(let i=-2;i<=2;i++){
+    let imgIndex = (index + i + images.length) % images.length;
+    const card = document.createElement("div");
+    card.className="card";
+    const img = document.createElement("img");
+    img.src = "images/" + images[imgIndex];
+    card.appendChild(img);
+    track.appendChild(card);
   }
-
-  document.querySelector(".arrow.right").onclick=()=>move(1);
-  document.querySelector(".arrow.left").onclick=()=>move(-1);
+  track.style.transform = "translateX(-284px)";
 }
+render();
+
+/* ===== CONTROLS ===== */
+function move(dir){
+  track.style.transition="transform .4s ease";
+  track.style.transform = `translateX(${dir>0 ? -568 : 0}px)`;
+  setTimeout(()=>{
+    index = (index + dir + images.length) % images.length;
+    track.style.transition="none";
+    render();
+  },400);
+}
+
+document.querySelector(".arrow.right").onclick = ()=>move(1);
+document.querySelector(".arrow.left").onclick = ()=>move(-1);
 </script>
 
 </body>
