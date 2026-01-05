@@ -8,13 +8,12 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 
 <style>
-:root {
+:root{
   --bg:#0b1412;
   --gold:#c6a86d;
   --text:#eae6dc;
   --muted:#9a968c;
 }
-
 *{box-sizing:border-box}
 body{
   margin:0;
@@ -29,7 +28,7 @@ body{
   height:90vh;
   background:
     linear-gradient(90deg,rgba(0,0,0,.65),rgba(0,0,0,.15)),
-    url("images/hero-background.jpg") center / cover no-repeat;
+    url("images/hero-background.jpg") center/cover no-repeat;
   display:flex;
   align-items:center;
 }
@@ -43,8 +42,8 @@ body{
   letter-spacing:.08em;
 }
 .hero p{
-  margin:1rem 0 2.5rem;
   color:var(--muted);
+  margin:1rem 0 2.5rem;
 }
 .hero a{
   border:1px solid var(--gold);
@@ -60,8 +59,8 @@ body{
 
 /* CAROUSEL */
 .carousel-section{
-  position:relative;
   padding:80px 70px;
+  position:relative;
 }
 .viewport{
   overflow:hidden;
@@ -74,14 +73,15 @@ body{
 .card{
   width:260px;
   aspect-ratio:1/1;
-  overflow:hidden;
   border-radius:6px;
+  overflow:hidden;
   flex-shrink:0;
 }
 .card img{
   width:100%;
   height:100%;
   object-fit:cover;
+  display:block;
 }
 
 /* ARROWS */
@@ -134,34 +134,52 @@ const images=[
   "Lamp6.jpg","Lamp7.jpg","Lamp8.jpg","Lamp9.jpg","Lamp10.jpg"
 ];
 
-const track=document.getElementById("track");
-const visible=[...images,...images,...images];
-visible.forEach(src=>{
-  const d=document.createElement("div");
-  d.className="card";
-  d.innerHTML=`<img src="images/${src}">`;
-  track.appendChild(d);
-});
-
-const step=260+24;
-let pos=images.length*step;
-track.style.transform=`translateX(${-pos}px)`;
-
-function move(dir){
-  track.style.transition="transform .45s ease";
-  pos+=dir*step;
-  track.style.transform=`translateX(${-pos}px)`;
-
-  track.addEventListener("transitionend",()=>{
-    track.style.transition="none";
-    if(pos<=step) pos+=images.length*step;
-    if(pos>=images.length*step*2) pos-=images.length*step;
-    track.style.transform=`translateX(${-pos}px)`;
-  },{once:true});
+// 🔒 PRELOAD ALLE BILDER
+function preload(list){
+  return Promise.all(list.map(src=>{
+    return new Promise(resolve=>{
+      const img=new Image();
+      img.src="images/"+src;
+      img.onload=resolve;
+    });
+  }));
 }
 
-document.querySelector(".arrow.right").onclick=()=>move(1);
-document.querySelector(".arrow.left").onclick=()=>move(-1);
+preload(images).then(initCarousel);
+
+function initCarousel(){
+  const track=document.getElementById("track");
+  const visible=[...images,...images,...images];
+
+  visible.forEach(src=>{
+    const d=document.createElement("div");
+    d.className="card";
+    const img=document.createElement("img");
+    img.src="images/"+src;
+    d.appendChild(img);
+    track.appendChild(d);
+  });
+
+  const step=260+24;
+  let pos=images.length*step;
+  track.style.transform=`translateX(${-pos}px)`;
+
+  function move(dir){
+    track.style.transition="transform .45s ease";
+    pos+=dir*step;
+    track.style.transform=`translateX(${-pos}px)`;
+
+    track.addEventListener("transitionend",()=>{
+      track.style.transition="none";
+      if(pos<=step) pos+=images.length*step;
+      if(pos>=images.length*step*2) pos-=images.length*step;
+      track.style.transform=`translateX(${-pos}px)`;
+    },{once:true});
+  }
+
+  document.querySelector(".arrow.right").onclick=()=>move(1);
+  document.querySelector(".arrow.left").onclick=()=>move(-1);
+}
 </script>
 
 </body>
