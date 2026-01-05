@@ -32,13 +32,16 @@ body{
   position:absolute;
   inset:0;
   background:url("hero-background.jpg") center center / cover no-repeat;
-  opacity:0.6;
+  opacity:0.7;
   z-index:-1;
 }
 
 .hero-content{
   max-width:720px;
   z-index:1;
+  background:rgba(14, 20, 18, 0.7);
+  padding:40px;
+  border-radius:8px;
 }
 
 .hero h1{
@@ -78,6 +81,7 @@ body{
 
 .viewport{
   overflow:hidden;
+  margin:0 60px;
 }
 
 .track{
@@ -87,13 +91,17 @@ body{
 }
 
 .card{
-  width:260px;
-  aspect-ratio:1/1;
+  width:280px;
+  height:280px;
   flex-shrink:0;
-  border-radius:6px;
+  border-radius:8px;
   overflow:hidden;
   border:1px solid rgba(198, 168, 109, 0.3);
   transition:transform 0.3s ease;
+  background:#1a2420;
+  display:flex;
+  align-items:center;
+  justify-content:center;
 }
 
 .card:hover{
@@ -112,12 +120,12 @@ body{
   position:absolute;
   top:50%;
   transform:translateY(-50%);
-  width:44px;
-  height:44px;
-  border:1px solid #c6a86d;
-  background:rgba(14, 20, 18, 0.8);
+  width:50px;
+  height:50px;
+  border:2px solid #c6a86d;
+  background:rgba(14, 20, 18, 0.9);
   color:#c6a86d;
-  font-size:22px;
+  font-size:24px;
   cursor:pointer;
   z-index:10;
   border-radius:50%;
@@ -127,23 +135,40 @@ body{
   transition:all 0.3s ease;
 }
 
-.arrow.left{left:16px}
-.arrow.right{right:16px}
+.arrow.left{left:0}
+.arrow.right{right:0}
 
 .arrow:hover{
   background:#c6a86d;
   color:#111;
 }
 
+/* Debug Info */
+.debug-info {
+  position:fixed;
+  bottom:10px;
+  left:10px;
+  background:rgba(0,0,0,0.8);
+  color:#fff;
+  padding:10px;
+  font-size:12px;
+  z-index:1000;
+  display:none;
+}
+
 @media(max-width:768px){
   .hero h1{font-size:2.6rem}
   .gallery{padding:50px 20px}
-  .card{width:200px;}
+  .viewport{margin:0 40px;}
+  .card{width:220px;height:220px;}
 }
 </style>
 </head>
 
 <body>
+
+<!-- DEBUG INFO (kann später entfernt werden) -->
+<div class="debug-info" id="debugInfo"></div>
 
 <!-- HERO -->
 <section class="hero">
@@ -164,9 +189,9 @@ body{
 </section>
 
 <script>
-// WICHTIG: Benutze den gleichen Bildnamen wie in deinem GitHub Repository!
+// WICHTIG: EXAKTE Dateinamen aus deinem Screenshot!
 const images = [
-  "Lamp1.jpg", 
+  "Lamp1.jpg",
   "Lamp2.jpg", 
   "Lamp3.jpg", 
   "Lamp4.jpg", 
@@ -175,41 +200,78 @@ const images = [
   "Lamp7.jpg", 
   "Lamp8.jpg", 
   "Lamp9.jpg", 
-  "Lamp10.jpg"
+  "Lamp10.jpg"  // Achtung: Lamp10.jpg nicht Lamp10.jpg!
 ];
 
 const track = document.getElementById("track");
-const cardWidth = 260;
+const debugInfo = document.getElementById("debugInfo");
+const cardWidth = 280;
 const gap = 24;
 const totalWidth = cardWidth + gap;
 let currentIndex = images.length;
 let isAnimating = false;
 
-// Debug: Überprüfe ob Bilder existieren
-console.log("Lade folgende Bilder:", images);
+// Debug-Funktion
+function showDebug(msg) {
+  debugInfo.style.display = 'block';
+  debugInfo.innerHTML = msg;
+  console.log(msg);
+}
+
+// Teste ob Bilder existieren
+function testImage(url) {
+  return new Promise((resolve) => {
+    const img = new Image();
+    img.onload = () => resolve({url, status: 'OK'});
+    img.onerror = () => resolve({url, status: 'FAILED'});
+    img.src = url;
+  });
+}
 
 // Track initialisieren
-function initTrack() {
+async function initTrack() {
+  showDebug('Initialisiere Galerie...');
   track.innerHTML = '';
   
+  // Teste alle Bilder
+  const tests = await Promise.all(
+    images.map(img => testImage(img))
+  );
+  
+  const failed = tests.filter(t => t.status === 'FAILED');
+  if (failed.length > 0) {
+    showDebug(`Fehler: ${failed.length} Bilder nicht gefunden: ${failed.map(f => f.url).join(', ')}`);
+  } else {
+    showDebug('Alle Bilder gefunden!');
+  }
+  
   // Drei Kopien der Bilder für nahtlose Schleife
-  [...images, ...images, ...images].forEach(src => {
+  [...images, ...images, ...images].forEach((src, idx) => {
     const card = document.createElement("div");
     card.className = "card";
+    card.id = `card-${idx}`;
+    
     const img = document.createElement("img");
+    img.src = src;
+    img.alt = `Lamp Design ${src}`;
     
-    // Versuche verschiedene Pfade:
-    img.src = src;  // Direkt im gleichen Ordner
-    
-    img.alt = "Lamp Design";
+    // Fehlerbehandlung
     img.onerror = function() {
-      console.error("Bild konnte nicht geladen werden:", src);
-      this.style.backgroundColor = "#333";
-      this.style.display = "flex";
-      this.style.alignItems = "center";
-      this.style.justifyContent = "center";
-      this.innerHTML = "<div>" + src + "</div>";
-      this.style.color = "white";
+      showDebug(`Bild fehlt: ${src}`);
+      this.style.display = 'none';
+      const errorDiv = document.createElement("div");
+      errorDiv.style.cssText = `
+        color: #c6a86d;
+        text-align: center;
+        padding: 20px;
+        font-family: monospace;
+      `;
+      errorDiv.innerHTML = `❌<br>${src}<br>nicht gefunden`;
+      card.appendChild(errorDiv);
+    };
+    
+    img.onload = function() {
+      console.log(`Bild geladen: ${src}`);
     };
     
     card.appendChild(img);
@@ -217,6 +279,11 @@ function initTrack() {
   });
   
   updateTrackPosition();
+  
+  // Auto-rotate
+  setInterval(() => {
+    if (!isAnimating) move(1);
+  }, 3000);
 }
 
 // Position aktualisieren
@@ -252,25 +319,31 @@ function move(direction) {
 // Initialisierung
 window.addEventListener('DOMContentLoaded', initTrack);
 
-// Touch-Swipe Unterstützung für Mobile
-let startX = 0;
-let endX = 0;
+// Tastatur-Steuerung
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'ArrowLeft') move(-1);
+  if (e.key === 'ArrowRight') move(1);
+});
 
+// Touch-Swipe
+let startX = 0;
 track.addEventListener('touchstart', (e) => {
   startX = e.touches[0].clientX;
 });
 
 track.addEventListener('touchend', (e) => {
-  endX = e.changedTouches[0].clientX;
+  const endX = e.changedTouches[0].clientX;
   const diff = startX - endX;
   
-  if (Math.abs(diff) > 50) { // Mindest-Swipe-Distanz
-    if (diff > 0) {
-      move(1); // Swipe nach links = nächste Bilder
-    } else {
-      move(-1); // Swipe nach rechts = vorherige Bilder
-    }
+  if (Math.abs(diff) > 50) {
+    if (diff > 0) move(1);
+    else move(-1);
   }
+});
+
+// Zeige Debug-Info mit Doppelklick
+document.addEventListener('dblclick', () => {
+  debugInfo.style.display = debugInfo.style.display === 'none' ? 'block' : 'none';
 });
 </script>
 
