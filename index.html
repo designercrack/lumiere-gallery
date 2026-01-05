@@ -1,351 +1,393 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LUMIÈRE</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
-
-<style>
-*{box-sizing:border-box;margin:0;padding:0}
-
-body{
-  background:#0e1412;
-  color:#e8e6de;
-  font-family:Inter,sans-serif;
-  overflow-x:hidden;
-}
-
-/* ===== HERO ===== */
-.hero{
-  position:relative;
-  height:90vh;
-  display:flex;
-  align-items:center;
-  padding:0 8vw;
-  background:#0e1412;
-}
-
-.hero::before{
-  content:"";
-  position:absolute;
-  inset:0;
-  background:url("hero-background.jpg") center center / cover no-repeat;
-  opacity:0.7;
-  z-index:-1;
-}
-
-.hero-content{
-  max-width:720px;
-  z-index:1;
-  background:rgba(14, 20, 18, 0.7);
-  padding:40px;
-  border-radius:8px;
-}
-
-.hero h1{
-  font-family:"Playfair Display",serif;
-  font-size:4rem;
-  letter-spacing:.08em;
-  margin-bottom:1rem;
-}
-
-.hero p{
-  color:#bfbab0;
-  margin-bottom:2.5rem;
-  font-size:1.2rem;
-}
-
-.hero a{
-  border:1px solid #c6a86d;
-  color:#c6a86d;
-  padding:14px 36px;
-  text-decoration:none;
-  letter-spacing:.14em;
-  display:inline-block;
-  transition:all 0.3s ease;
-}
-
-.hero a:hover{
-  background:#c6a86d;
-  color:#0e1412;
-}
-
-/* ===== GALLERY ===== */
-.gallery{
-  padding:80px 60px;
-  position:relative;
-  background:#0e1412;
-}
-
-.viewport{
-  overflow:hidden;
-  margin:0 60px;
-}
-
-.track{
-  display:flex;
-  gap:24px;
-  will-change:transform;
-}
-
-.card{
-  width:280px;
-  height:280px;
-  flex-shrink:0;
-  border-radius:8px;
-  overflow:hidden;
-  border:1px solid rgba(198, 168, 109, 0.3);
-  transition:transform 0.3s ease;
-  background:#1a2420;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-}
-
-.card:hover{
-  transform:scale(1.05);
-}
-
-.card img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  display:block;
-}
-
-/* ===== ARROWS ===== */
-.arrow{
-  position:absolute;
-  top:50%;
-  transform:translateY(-50%);
-  width:50px;
-  height:50px;
-  border:2px solid #c6a86d;
-  background:rgba(14, 20, 18, 0.9);
-  color:#c6a86d;
-  font-size:24px;
-  cursor:pointer;
-  z-index:10;
-  border-radius:50%;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  transition:all 0.3s ease;
-}
-
-.arrow.left{left:0}
-.arrow.right{right:0}
-
-.arrow:hover{
-  background:#c6a86d;
-  color:#111;
-}
-
-/* Debug Info */
-.debug-info {
-  position:fixed;
-  bottom:10px;
-  left:10px;
-  background:rgba(0,0,0,0.8);
-  color:#fff;
-  padding:10px;
-  font-size:12px;
-  z-index:1000;
-  display:none;
-}
-
-@media(max-width:768px){
-  .hero h1{font-size:2.6rem}
-  .gallery{padding:50px 20px}
-  .viewport{margin:0 40px;}
-  .card{width:220px;height:220px;}
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EUROPEAN INTERIOR Gallery</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        body {
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        /* Header und Navigation */
+        .top-bar {
+            background-color: #f8f8f8;
+            padding: 15px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #eee;
+            font-size: 14px;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .nav-links a:hover {
+            color: #777;
+        }
+        
+        /* Hauptbereich mit Hero-Bild */
+        .hero {
+            position: relative;
+            height: 85vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), 
+                        url('https://images.unsplash.com/photo-1615529328331-f8917597711f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1770&q=80');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            text-align: center;
+            padding: 0 20px;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 300;
+            letter-spacing: 3px;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+        
+        .hero h2 {
+            font-size: 1.2rem;
+            font-weight: 300;
+            letter-spacing: 8px;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+        }
+        
+        .hero p {
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin-bottom: 40px;
+            font-weight: 300;
+            line-height: 1.8;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            padding: 15px 40px;
+            background-color: transparent;
+            color: white;
+            border: 2px solid white;
+            text-decoration: none;
+            font-size: 1rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+        }
+        
+        .cta-button:hover {
+            background-color: white;
+            color: #333;
+        }
+        
+        /* Kollektionen Bereich */
+        .collections {
+            padding: 80px 40px;
+            background-color: #fff;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .section-header h3 {
+            font-size: 1.8rem;
+            font-weight: 300;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+        }
+        
+        .section-header p {
+            color: #777;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .collection-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .collection-item {
+            text-align: center;
+        }
+        
+        .collection-image {
+            height: 300px;
+            background-color: #f5f5f5;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        
+        .collection-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .collection-item:hover .collection-image img {
+            transform: scale(1.05);
+        }
+        
+        .collection-item h4 {
+            font-size: 1.3rem;
+            font-weight: 400;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .collection-link {
+            color: #333;
+            text-decoration: none;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            border-bottom: 1px solid transparent;
+            padding-bottom: 2px;
+            transition: border-color 0.3s ease;
+        }
+        
+        .collection-link:hover {
+            border-bottom: 1px solid #333;
+        }
+        
+        /* Shop-Bereich */
+        .shop-section {
+            padding: 80px 40px;
+            background-color: #f8f8f8;
+            text-align: center;
+        }
+        
+        .shop-section h3 {
+            font-size: 1.8rem;
+            font-weight: 300;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+        
+        .shop-section p {
+            color: #777;
+            max-width: 600px;
+            margin: 0 auto 40px;
+        }
+        
+        /* Newsletter-Bereich */
+        .newsletter {
+            padding: 80px 40px;
+            background-color: #fff;
+            text-align: center;
+        }
+        
+        .newsletter h3 {
+            font-size: 1.8rem;
+            font-weight: 300;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+        
+        .newsletter p {
+            color: #777;
+            max-width: 600px;
+            margin: 0 auto 40px;
+        }
+        
+        .newsletter-form {
+            display: flex;
+            justify-content: center;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        
+        .newsletter-input {
+            flex-grow: 1;
+            padding: 15px 20px;
+            border: 1px solid #ddd;
+            font-size: 1rem;
+            outline: none;
+        }
+        
+        .newsletter-button {
+            padding: 15px 30px;
+            background-color: #333;
+            color: white;
+            border: none;
+            font-size: 1rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        
+        .newsletter-button:hover {
+            background-color: #555;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: #f8f8f8;
+            padding: 30px 40px;
+            text-align: center;
+            border-top: 1px solid #eee;
+            color: #777;
+            font-size: 0.9rem;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .collection-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .top-bar {
+                flex-direction: column;
+                gap: 15px;
+                padding: 15px 20px;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero h2 {
+                font-size: 1rem;
+                letter-spacing: 5px;
+            }
+            
+            .collection-grid {
+                grid-template-columns: 1fr;
+                gap: 50px;
+            }
+            
+            .newsletter-form {
+                flex-direction: column;
+            }
+            
+            .newsletter-input, .newsletter-button {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+        }
+    </style>
 </head>
-
 <body>
+    <!-- Top Navigation -->
+    <div class="top-bar">
+        <div class="nav-links">
+            <a href="#">KOLLEKTIONEN</a>
+            <a href="#">ÜBER UNS</a>
+            <a href="#">KONTAKT</a>
+        </div>
+    </div>
 
-<!-- DEBUG INFO (kann später entfernt werden) -->
-<div class="debug-info" id="debugInfo"></div>
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>EUROPEAN INTERIOR</h1>
+        <h2>Gallery</h2>
+        <p>Curated lighting & objects for modern living</p>
+        <a href="#" class="cta-button">Explore the Collection →</a>
+    </section>
 
-<!-- HERO -->
-<section class="hero">
-  <div class="hero-content">
-    <h1>LUMIÈRE</h1>
-    <p>European Interior Gallery<br>Created Lighting & Objects for Modern Living</p>
-    <a href="#gallery">EXPLORE COLLECTION</a>
-  </div>
-</section>
+    <!-- Kollektionen Section -->
+    <section class="collections">
+        <div class="section-header">
+            <h3>Unsere Kollektionen</h3>
+            <p>Curated lighting & objects for modern living.</p>
+        </div>
+        
+        <div class="collection-grid">
+            <div class="collection-item">
+                <div class="collection-image">
+                    <img src="https://images.unsplash.com/photo-1519643381401-22c77e60520e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="Modern Classics">
+                </div>
+                <h4>Modern Classics</h4>
+                <a href="#" class="collection-link">Ansehen →</a>
+            </div>
+            
+            <div class="collection-item">
+                <div class="collection-image">
+                    <img src="https://images.unsplash.com/photo-1556228453-efd6c1ff04f6?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="Iconic Objects">
+                </div>
+                <h4>Iconic Objects</h4>
+                <a href="#" class="collection-link">Ansehen →</a>
+            </div>
+            
+            <div class="collection-item">
+                <div class="collection-image">
+                    <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="Statement Lighting">
+                </div>
+                <h4>Statement Lighting</h4>
+                <a href="#" class="collection-link">Ansehen →</a>
+            </div>
+            
+            <div class="collection-item">
+                <div class="collection-image">
+                    <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="Architectural Light">
+                </div>
+                <h4>Architectural Light</h4>
+                <a href="#" class="collection-link">Ansehen →</a>
+            </div>
+        </div>
+    </section>
 
-<!-- GALLERY -->
-<section class="gallery" id="gallery">
-  <button class="arrow left" onclick="move(-1)">‹</button>
-  <div class="viewport">
-    <div class="track" id="track"></div>
-  </div>
-  <button class="arrow right" onclick="move(1)">›</button>
-</section>
+    <!-- Shop Section -->
+    <section class="shop-section">
+        <h3>Entdecken Sie unseren kuratierten Interior-Shop.</h3>
+        <p>Finden Sie ausgewählte Designstücke für Ihr Zuhause.</p>
+    </section>
 
-<script>
-// WICHTIG: EXAKTE Dateinamen aus deinem Screenshot!
-const images = [
-  "Lamp1.jpg",
-  "Lamp2.jpg", 
-  "Lamp3.jpg", 
-  "Lamp4.jpg", 
-  "Lamp5.jpg",
-  "Lamp6.jpg", 
-  "Lamp7.jpg", 
-  "Lamp8.jpg", 
-  "Lamp9.jpg", 
-  "Lamp10.jpg"  // Achtung: Lamp10.jpg nicht Lamp10.jpg!
-];
+    <!-- Newsletter Section -->
+    <section class="newsletter">
+        <h3>Melden Sie sich an für exklusive Angebote und inspirierende Designs.</h3>
+        <p>Bleiben Sie auf dem Laufenden mit unseren neuesten Kollektionen und Sonderangeboten.</p>
+        
+        <form class="newsletter-form">
+            <input type="email" class="newsletter-input" placeholder="Ihre E-Mail Adresse" required>
+            <button type="submit" class="newsletter-button">Abonnieren →</button>
+        </form>
+    </section>
 
-const track = document.getElementById("track");
-const debugInfo = document.getElementById("debugInfo");
-const cardWidth = 280;
-const gap = 24;
-const totalWidth = cardWidth + gap;
-let currentIndex = images.length;
-let isAnimating = false;
-
-// Debug-Funktion
-function showDebug(msg) {
-  debugInfo.style.display = 'block';
-  debugInfo.innerHTML = msg;
-  console.log(msg);
-}
-
-// Teste ob Bilder existieren
-function testImage(url) {
-  return new Promise((resolve) => {
-    const img = new Image();
-    img.onload = () => resolve({url, status: 'OK'});
-    img.onerror = () => resolve({url, status: 'FAILED'});
-    img.src = url;
-  });
-}
-
-// Track initialisieren
-async function initTrack() {
-  showDebug('Initialisiere Galerie...');
-  track.innerHTML = '';
-  
-  // Teste alle Bilder
-  const tests = await Promise.all(
-    images.map(img => testImage(img))
-  );
-  
-  const failed = tests.filter(t => t.status === 'FAILED');
-  if (failed.length > 0) {
-    showDebug(`Fehler: ${failed.length} Bilder nicht gefunden: ${failed.map(f => f.url).join(', ')}`);
-  } else {
-    showDebug('Alle Bilder gefunden!');
-  }
-  
-  // Drei Kopien der Bilder für nahtlose Schleife
-  [...images, ...images, ...images].forEach((src, idx) => {
-    const card = document.createElement("div");
-    card.className = "card";
-    card.id = `card-${idx}`;
-    
-    const img = document.createElement("img");
-    img.src = src;
-    img.alt = `Lamp Design ${src}`;
-    
-    // Fehlerbehandlung
-    img.onerror = function() {
-      showDebug(`Bild fehlt: ${src}`);
-      this.style.display = 'none';
-      const errorDiv = document.createElement("div");
-      errorDiv.style.cssText = `
-        color: #c6a86d;
-        text-align: center;
-        padding: 20px;
-        font-family: monospace;
-      `;
-      errorDiv.innerHTML = `❌<br>${src}<br>nicht gefunden`;
-      card.appendChild(errorDiv);
-    };
-    
-    img.onload = function() {
-      console.log(`Bild geladen: ${src}`);
-    };
-    
-    card.appendChild(img);
-    track.appendChild(card);
-  });
-  
-  updateTrackPosition();
-  
-  // Auto-rotate
-  setInterval(() => {
-    if (!isAnimating) move(1);
-  }, 3000);
-}
-
-// Position aktualisieren
-function updateTrackPosition() {
-  track.style.transform = `translateX(${-currentIndex * totalWidth}px)`;
-}
-
-// Bewegung steuern
-function move(direction) {
-  if (isAnimating) return;
-  
-  isAnimating = true;
-  track.style.transition = "transform 0.45s ease";
-  currentIndex += direction;
-  updateTrackPosition();
-  
-  track.addEventListener("transitionend", function resetPosition() {
-    track.style.transition = "none";
-    
-    if (currentIndex <= images.length) {
-      currentIndex += images.length;
-    }
-    if (currentIndex >= images.length * 2) {
-      currentIndex -= images.length;
-    }
-    
-    updateTrackPosition();
-    isAnimating = false;
-    track.removeEventListener("transitionend", resetPosition);
-  }, { once: true });
-}
-
-// Initialisierung
-window.addEventListener('DOMContentLoaded', initTrack);
-
-// Tastatur-Steuerung
-document.addEventListener('keydown', (e) => {
-  if (e.key === 'ArrowLeft') move(-1);
-  if (e.key === 'ArrowRight') move(1);
-});
-
-// Touch-Swipe
-let startX = 0;
-track.addEventListener('touchstart', (e) => {
-  startX = e.touches[0].clientX;
-});
-
-track.addEventListener('touchend', (e) => {
-  const endX = e.changedTouches[0].clientX;
-  const diff = startX - endX;
-  
-  if (Math.abs(diff) > 50) {
-    if (diff > 0) move(1);
-    else move(-1);
-  }
-});
-
-// Zeige Debug-Info mit Doppelklick
-document.addEventListener('dblclick', () => {
-  debugInfo.style.display = debugInfo.style.display === 'none' ? 'block' : 'none';
-});
-</script>
-
+    <!-- Footer -->
+    <footer>
+        <p>© 2011 European Interior Gallery - Alle Rechte vorbehalten</p>
+    </footer>
 </body>
 </html>
