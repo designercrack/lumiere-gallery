@@ -31,13 +31,14 @@ body{
   content:"";
   position:absolute;
   inset:0;
-  /* WICHTIG: Kein images/ Ordner! */
-  background:url("hero-background.jpg") center center / contain no-repeat;
+  background:url("hero-background.jpg") center center / cover no-repeat;
+  opacity:0.6;
   z-index:-1;
 }
 
 .hero-content{
   max-width:720px;
+  z-index:1;
 }
 
 .hero h1{
@@ -50,6 +51,7 @@ body{
 .hero p{
   color:#bfbab0;
   margin-bottom:2.5rem;
+  font-size:1.2rem;
 }
 
 .hero a{
@@ -58,12 +60,20 @@ body{
   padding:14px 36px;
   text-decoration:none;
   letter-spacing:.14em;
+  display:inline-block;
+  transition:all 0.3s ease;
+}
+
+.hero a:hover{
+  background:#c6a86d;
+  color:#0e1412;
 }
 
 /* ===== GALLERY ===== */
 .gallery{
   padding:80px 60px;
   position:relative;
+  background:#0e1412;
 }
 
 .viewport{
@@ -82,6 +92,12 @@ body{
   flex-shrink:0;
   border-radius:6px;
   overflow:hidden;
+  border:1px solid rgba(198, 168, 109, 0.3);
+  transition:transform 0.3s ease;
+}
+
+.card:hover{
+  transform:scale(1.05);
 }
 
 .card img{
@@ -99,11 +115,16 @@ body{
   width:44px;
   height:44px;
   border:1px solid #c6a86d;
-  background:rgba(0,0,0,.6);
+  background:rgba(14, 20, 18, 0.8);
   color:#c6a86d;
   font-size:22px;
   cursor:pointer;
   z-index:10;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  transition:all 0.3s ease;
 }
 
 .arrow.left{left:16px}
@@ -117,6 +138,7 @@ body{
 @media(max-width:768px){
   .hero h1{font-size:2.6rem}
   .gallery{padding:50px 20px}
+  .card{width:200px;}
 }
 </style>
 </head>
@@ -142,9 +164,18 @@ body{
 </section>
 
 <script>
+// WICHTIG: Benutze den gleichen Bildnamen wie in deinem GitHub Repository!
 const images = [
-  "Lamp1.jpg", "Lamp2.jpg", "Lamp3.jpg", "Lamp4.jpg", "Lamp5.jpg",
-  "Lamp6.jpg", "Lamp7.jpg", "Lamp8.jpg", "Lamp9.jpg", "Lamp10.jpg"
+  "Lamp1.jpg", 
+  "Lamp2.jpg", 
+  "Lamp3.jpg", 
+  "Lamp4.jpg", 
+  "Lamp5.jpg",
+  "Lamp6.jpg", 
+  "Lamp7.jpg", 
+  "Lamp8.jpg", 
+  "Lamp9.jpg", 
+  "Lamp10.jpg"
 ];
 
 const track = document.getElementById("track");
@@ -153,6 +184,9 @@ const gap = 24;
 const totalWidth = cardWidth + gap;
 let currentIndex = images.length;
 let isAnimating = false;
+
+// Debug: Überprüfe ob Bilder existieren
+console.log("Lade folgende Bilder:", images);
 
 // Track initialisieren
 function initTrack() {
@@ -163,9 +197,21 @@ function initTrack() {
     const card = document.createElement("div");
     card.className = "card";
     const img = document.createElement("img");
-    // WICHTIG: Kein images/ Ordner!
-    img.src = src;
+    
+    // Versuche verschiedene Pfade:
+    img.src = src;  // Direkt im gleichen Ordner
+    
     img.alt = "Lamp Design";
+    img.onerror = function() {
+      console.error("Bild konnte nicht geladen werden:", src);
+      this.style.backgroundColor = "#333";
+      this.style.display = "flex";
+      this.style.alignItems = "center";
+      this.style.justifyContent = "center";
+      this.innerHTML = "<div>" + src + "</div>";
+      this.style.color = "white";
+    };
+    
     card.appendChild(img);
     track.appendChild(card);
   });
@@ -204,7 +250,28 @@ function move(direction) {
 }
 
 // Initialisierung
-initTrack();
+window.addEventListener('DOMContentLoaded', initTrack);
+
+// Touch-Swipe Unterstützung für Mobile
+let startX = 0;
+let endX = 0;
+
+track.addEventListener('touchstart', (e) => {
+  startX = e.touches[0].clientX;
+});
+
+track.addEventListener('touchend', (e) => {
+  endX = e.changedTouches[0].clientX;
+  const diff = startX - endX;
+  
+  if (Math.abs(diff) > 50) { // Mindest-Swipe-Distanz
+    if (diff > 0) {
+      move(1); // Swipe nach links = nächste Bilder
+    } else {
+      move(-1); // Swipe nach rechts = vorherige Bilder
+    }
+  }
+});
 </script>
 
 </body>
