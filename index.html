@@ -127,12 +127,10 @@
             text-shadow: none;
         }
         
-        /* COLLECTIONS SECTION - EINZELNE REIHE MIT ENDLOS-SCROLL */
+        /* COLLECTIONS SECTION - MANUELLES ENDLOS-SCROLLEN */
         .collections {
             background-color: #0c1f13; /* Dunkelgrün */
             padding: 100px 40px;
-            position: relative;
-            overflow: hidden;
         }
         
         .section-header {
@@ -156,35 +154,53 @@
             margin: 0 auto;
         }
         
-        /* ENDLOS-SCROLL CONTAINER - EINE EINZIGE REIHE */
-        .infinite-scroll-container {
+        /* MANUELLES ENDLOS-SCROLLEN CONTAINER */
+        .manual-infinite-scroll {
             position: relative;
             width: 100%;
-            overflow: hidden;
-            padding: 30px 0;
+            overflow-x: auto;
+            overflow-y: hidden;
+            padding: 30px 0 50px;
+            cursor: grab;
+            scrollbar-width: thin;
+            scrollbar-color: #1a3c27 #0c1f13;
         }
         
-        /* EINE SCROLLBARE REIHE MIT DUPLIKAT FÜR ENDLOS-EFFEKT */
-        .infinite-scroll-row {
+        .manual-infinite-scroll:active {
+            cursor: grabbing;
+        }
+        
+        /* Custom Scrollbar */
+        .manual-infinite-scroll::-webkit-scrollbar {
+            height: 8px;
+        }
+        
+        .manual-infinite-scroll::-webkit-scrollbar-track {
+            background: #142a1b;
+            border-radius: 4px;
+        }
+        
+        .manual-infinite-scroll::-webkit-scrollbar-thumb {
+            background: #1a3c27;
+            border-radius: 4px;
+        }
+        
+        .manual-infinite-scroll::-webkit-scrollbar-thumb:hover {
+            background: #2a4d38;
+        }
+        
+        /* SCROLL INHALT - EXTRA BREIT FÜR ENDLOSES SCROLLEN */
+        .infinite-content {
             display: flex;
             gap: 30px;
             width: max-content;
-            animation: infiniteScroll 40s linear infinite;
+            padding: 0 20px;
         }
         
-        /* ANIMATION FÜR ENDLOS-SCROLL IN EINER REIHE */
-        @keyframes infiniteScroll {
-            0% {
-                transform: translateX(0);
-            }
-            100% {
-                transform: translateX(-50%);
-            }
-        }
-        
-        /* PAUSE ANIMATION BEI HOVER */
-        .infinite-scroll-container:hover .infinite-scroll-row {
-            animation-play-state: paused;
+        /* FÜR ECHTES ENDLOSES SCROLLEN: WIR DUPLIZIEREN DEN INHALT */
+        .infinite-content::after {
+            content: '';
+            display: none; /* Wird per JavaScript aktiviert */
         }
         
         .collection-item {
@@ -196,6 +212,7 @@
             border-radius: 8px;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
+            user-select: none;
         }
         
         .collection-item:hover {
@@ -379,13 +396,12 @@
                 height: 300px;
             }
             
-            .infinite-scroll-row {
+            .infinite-content {
                 gap: 20px;
             }
             
-            /* Langsamere Animation auf Mobile */
-            .infinite-scroll-row {
-                animation: infiniteScroll 60s linear infinite;
+            .manual-infinite-scroll {
+                padding: 20px 0 40px;
             }
             
             .newsletter-form {
@@ -427,18 +443,17 @@
         <a href="#collections" class="cta-button">EXPLORE THE COLLECTION →</a>
     </section>
 
-    <!-- Collections Section - EINZELNE REIHE MIT ENDLOS-SCROLL -->
+    <!-- Collections Section - MANUELLES ENDLOS-SCROLLEN -->
     <section class="collections" id="collections">
         <div class="section-header">
             <h3 class="section-title">Unsere Kollektionen</h3>
             <p class="section-description">Curated lighting & objects for modern living.</p>
         </div>
         
-        <!-- ENDLOS-SCROLL CONTAINER - EINE EINZIGE REIHE -->
-        <div class="infinite-scroll-container">
-            <!-- EINE SCROLLBARE REIHE MIT DUPLIKATEN FÜR ENDLOS-EFFEKT -->
-            <div class="infinite-scroll-row">
-                <!-- ORIGINALE 10 BILDER -->
+        <!-- MANUELLES ENDLOS-SCROLLEN CONTAINER -->
+        <div class="manual-infinite-scroll" id="infiniteScroll">
+            <div class="infinite-content">
+                <!-- ORIGINALE BILDER -->
                 <div class="collection-item">
                     <div class="collection-image">
                         <img src="images/Lamp6.jpg" alt="Modern Classics">
@@ -519,8 +534,8 @@
                     <a href="#" class="collection-link">Ansehen →</a>
                 </div>
                 
-                <!-- DUPLIKATE DER 10 BILDER FÜR ENDLOS-EFFEKT -->
-                <div class="collection-item">
+                <!-- DUPLIKATE FÜR ENDLOSES SCROLLEN (unsichtbar bis gebraucht) -->
+                <div class="collection-item duplicate">
                     <div class="collection-image">
                         <img src="images/Lamp6.jpg" alt="Modern Classics">
                     </div>
@@ -528,7 +543,7 @@
                     <a href="#" class="collection-link">Ansehen →</a>
                 </div>
                 
-                <div class="collection-item">
+                <div class="collection-item duplicate">
                     <div class="collection-image">
                         <img src="images/Lamp7.jpg" alt="Iconic Objects">
                     </div>
@@ -536,7 +551,7 @@
                     <a href="#" class="collection-link">Ansehen →</a>
                 </div>
                 
-                <div class="collection-item">
+                <div class="collection-item duplicate">
                     <div class="collection-image">
                         <img src="images/Lamp8.jpg" alt="Statement Lighting">
                     </div>
@@ -544,59 +559,11 @@
                     <a href="#" class="collection-link">Ansehen →</a>
                 </div>
                 
-                <div class="collection-item">
+                <div class="collection-item duplicate">
                     <div class="collection-image">
                         <img src="images/Lamp9.jpg" alt="Architectural Light">
                     </div>
                     <h4 class="collection-name">Architectural Light</h4>
-                    <a href="#" class="collection-link">Ansehen →</a>
-                </div>
-                
-                <div class="collection-item">
-                    <div class="collection-image">
-                        <img src="images/Lamp1.jpg" alt="Minimal Design">
-                    </div>
-                    <h4 class="collection-name">Minimal Design</h4>
-                    <a href="#" class="collection-link">Ansehen →</a>
-                </div>
-                
-                <div class="collection-item">
-                    <div class="collection-image">
-                        <img src="images/Lamp2.jpg" alt="Scandinavian">
-                    </div>
-                    <h4 class="collection-name">Scandinavian</h4>
-                    <a href="#" class="collection-link">Ansehen →</a>
-                </div>
-                
-                <div class="collection-item">
-                    <div class="collection-image">
-                        <img src="images/Lamp3.jpg" alt="Industrial">
-                    </div>
-                    <h4 class="collection-name">Industrial</h4>
-                    <a href="#" class="collection-link">Ansehen →</a>
-                </div>
-                
-                <div class="collection-item">
-                    <div class="collection-image">
-                        <img src="images/Lamp4.jpg" alt="Modern Luxury">
-                    </div>
-                    <h4 class="collection-name">Modern Luxury</h4>
-                    <a href="#" class="collection-link">Ansehen →</a>
-                </div>
-                
-                <div class="collection-item">
-                    <div class="collection-image">
-                        <img src="images/Lamp5.jpg" alt="Contemporary">
-                    </div>
-                    <h4 class="collection-name">Contemporary</h4>
-                    <a href="#" class="collection-link">Ansehen →</a>
-                </div>
-                
-                <div class="collection-item">
-                    <div class="collection-image">
-                        <img src="images/Lamp10.jpg" alt="Art Deco">
-                    </div>
-                    <h4 class="collection-name">Art Deco</h4>
                     <a href="#" class="collection-link">Ansehen →</a>
                 </div>
             </div>
@@ -623,5 +590,96 @@
     <footer>
         <p>© 2011 European Interior Gallery - Alle Rechte vorbehalten</p>
     </footer>
+
+    <script>
+        // MANUELLES ENDLOS-SCROLLEN SCRIPT
+        document.addEventListener('DOMContentLoaded', function() {
+            const scrollContainer = document.getElementById('infiniteScroll');
+            const content = scrollContainer.querySelector('.infinite-content');
+            const items = content.querySelectorAll('.collection-item');
+            const duplicates = content.querySelectorAll('.collection-item.duplicate');
+            
+            // Zuerst alle Duplikate ausblenden
+            duplicates.forEach(dup => {
+                dup.style.display = 'none';
+            });
+            
+            // Funktion zum Hinzufügen von Duplikaten wenn nötig
+            function checkAndAddDuplicates() {
+                const containerWidth = scrollContainer.clientWidth;
+                const contentWidth = content.scrollWidth;
+                const scrollLeft = scrollContainer.scrollLeft;
+                const scrollRight = scrollLeft + containerWidth;
+                
+                // Wenn wir nah am Ende sind, Duplikate einblenden
+                if (scrollRight > contentWidth - containerWidth * 0.5) {
+                    duplicates.forEach(dup => {
+                        dup.style.display = 'block';
+                    });
+                }
+                
+                // Wenn wir wieder am Anfang sind, Duplikate ausblenden
+                if (scrollLeft < containerWidth * 0.5) {
+                    duplicates.forEach(dup => {
+                        dup.style.display = 'none';
+                    });
+                }
+            }
+            
+            // Event Listener für Scroll
+            scrollContainer.addEventListener('scroll', checkAndAddDuplicates);
+            
+            // Drag-to-Scroll Funktionalität
+            let isDown = false;
+            let startX;
+            let scrollLeftStart;
+            
+            scrollContainer.addEventListener('mousedown', (e) => {
+                isDown = true;
+                scrollContainer.classList.add('active');
+                startX = e.pageX - scrollContainer.offsetLeft;
+                scrollLeftStart = scrollContainer.scrollLeft;
+            });
+            
+            scrollContainer.addEventListener('mouseleave', () => {
+                isDown = false;
+                scrollContainer.classList.remove('active');
+            });
+            
+            scrollContainer.addEventListener('mouseup', () => {
+                isDown = false;
+                scrollContainer.classList.remove('active');
+            });
+            
+            scrollContainer.addEventListener('mousemove', (e) => {
+                if (!isDown) return;
+                e.preventDefault();
+                const x = e.pageX - scrollContainer.offsetLeft;
+                const walk = (x - startX) * 2; // Scroll-Geschwindigkeit
+                scrollContainer.scrollLeft = scrollLeftStart - walk;
+            });
+            
+            // Touch Support für Mobile
+            scrollContainer.addEventListener('touchstart', (e) => {
+                isDown = true;
+                startX = e.touches[0].pageX - scrollContainer.offsetLeft;
+                scrollLeftStart = scrollContainer.scrollLeft;
+            });
+            
+            scrollContainer.addEventListener('touchend', () => {
+                isDown = false;
+            });
+            
+            scrollContainer.addEventListener('touchmove', (e) => {
+                if (!isDown) return;
+                const x = e.touches[0].pageX - scrollContainer.offsetLeft;
+                const walk = (x - startX) * 2;
+                scrollContainer.scrollLeft = scrollLeftStart - walk;
+            });
+            
+            // Initial check
+            checkAndAddDuplicates();
+        });
+    </script>
 </body>
 </html>
