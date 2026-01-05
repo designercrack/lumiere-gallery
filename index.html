@@ -4,93 +4,92 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EUROPEAN INTERIOR Gallery</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        /* RESET & BASIS */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Arial', sans-serif;
         }
         
         body {
-            color: #333;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            color: #1a1a1a;
             line-height: 1.6;
-            background-color: #f8f8f8; /* Hellgrauer Hintergrund für gesamte Seite */
+            background-color: #f5f5f5; /* Hellgrauer Hintergrund für die gesamte Seite */
+            max-width: 1600px;
+            margin: 0 auto;
         }
         
-        /* Header und Navigation */
-        .top-bar {
+        /* NAVIGATION */
+        .main-nav {
             background-color: #fff;
-            padding: 15px 40px;
+            padding: 20px 40px;
+            border-bottom: 1px solid #e0e0e0;
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
             align-items: center;
-            border-bottom: 1px solid #eee;
-            font-size: 14px;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            background-color: rgba(255, 255, 255, 0.95);
         }
         
         .nav-links {
             display: flex;
-            gap: 30px;
+            gap: 40px;
         }
         
         .nav-links a {
             text-decoration: none;
             color: #333;
+            font-size: 14px;
             font-weight: 500;
+            letter-spacing: 1px;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
+            padding-bottom: 5px;
+            border-bottom: 2px solid transparent;
+            transition: all 0.3s ease;
         }
         
         .nav-links a:hover {
-            color: #777;
+            color: #000;
+            border-bottom: 2px solid #000;
         }
         
-        /* Hauptbereich mit Hero-Bild */
-        .hero {
-            position: relative;
-            height: 100vh;
-            background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), 
-                        url('images/hero-background.jpg');
-            background-size: cover;
-            background-position: center;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            color: white;
-            text-align: center;
-            padding: 0 20px;
-            margin-top: 60px;
-        }
-        
-        .hero h1 {
-            font-size: 3.5rem;
+        /* SEPARATOR FÜR NAV LINKS */
+        .nav-separator {
+            color: #ccc;
             font-weight: 300;
-            letter-spacing: 3px;
-            margin-bottom: 10px;
-            text-transform: uppercase;
         }
         
-        .hero h2 {
-            font-size: 1.2rem;
+        /* HERO SECTION */
+        .hero {
+            background-color: #f0f0f0; /* Heller Hintergrund für Hero */
+            padding: 120px 40px 100px;
+            text-align: center;
+        }
+        
+        .hero-title {
+            font-size: 48px;
             font-weight: 300;
             letter-spacing: 8px;
-            margin-bottom: 30px;
             text-transform: uppercase;
+            margin-bottom: 10px;
+            color: #1a1a1a;
         }
         
-        .hero p {
-            font-size: 1.1rem;
-            max-width: 600px;
-            margin-bottom: 40px;
+        .hero-subtitle {
+            font-size: 18px;
+            font-weight: 400;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            margin-bottom: 30px;
+            color: #1a1a1a;
+        }
+        
+        .hero-description {
+            font-size: 16px;
             font-weight: 300;
+            color: #666;
+            max-width: 500px;
+            margin: 0 auto 40px;
             line-height: 1.8;
         }
         
@@ -98,99 +97,66 @@
             display: inline-block;
             padding: 15px 40px;
             background-color: transparent;
-            color: white;
-            border: 2px solid white;
+            color: #1a1a1a;
+            border: 2px solid #1a1a1a;
             text-decoration: none;
-            font-size: 1rem;
-            letter-spacing: 1.5px;
+            font-size: 14px;
+            letter-spacing: 2px;
             text-transform: uppercase;
             transition: all 0.3s ease;
         }
         
         .cta-button:hover {
-            background-color: white;
-            color: #333;
+            background-color: #1a1a1a;
+            color: #fff;
         }
         
-        /* Kollektionen Bereich - SCROLLBAR */
+        /* COLLECTIONS SECTION */
         .collections {
-            padding: 100px 40px 80px;
-            background-color: #fff; /* Weißer Hintergrund nur für diesen Bereich */
+            background-color: #fff; /* Weißer Hintergrund für Collections */
+            padding: 100px 40px;
         }
         
         .section-header {
             text-align: center;
-            margin-bottom: 60px;
+            margin-bottom: 70px;
         }
         
-        .section-header h3 {
-            font-size: 1.8rem;
+        .section-title {
+            font-size: 24px;
             font-weight: 300;
-            letter-spacing: 1px;
-            margin-bottom: 15px;
+            letter-spacing: 2px;
             text-transform: uppercase;
+            margin-bottom: 15px;
+            color: #1a1a1a;
         }
         
-        .section-header p {
-            color: #777;
-            max-width: 600px;
-            margin: 0 auto 40px;
+        .section-description {
+            font-size: 16px;
+            color: #666;
+            max-width: 500px;
+            margin: 0 auto;
         }
         
-        /* Scrollbare Galerie */
-        .collection-scroll {
-            display: flex;
-            overflow-x: auto;
-            gap: 30px;
-            padding: 30px 20px 50px 20px;
-            scrollbar-width: thin;
-            scrollbar-color: #ddd #fff;
-        }
-        
-        /* Custom Scrollbar für Webkit-Browser */
-        .collection-scroll::-webkit-scrollbar {
-            height: 8px;
-        }
-        
-        .collection-scroll::-webkit-scrollbar-track {
-            background: #f1f1f1;
-            border-radius: 4px;
-        }
-        
-        .collection-scroll::-webkit-scrollbar-thumb {
-            background: #ccc;
-            border-radius: 4px;
-        }
-        
-        .collection-scroll::-webkit-scrollbar-thumb:hover {
-            background: #aaa;
+        /* COLLECTION GRID (4 ITEMS) */
+        .collection-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
         }
         
         .collection-item {
-            flex: 0 0 auto;
-            width: 320px;
             text-align: center;
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        
-        .collection-item:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
         }
         
         .collection-image {
-            height: 350px;
-            background-color: #f5f5f5;
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            height: 400px;
+            background-color: #f9f9f9;
+            margin-bottom: 25px;
             overflow: hidden;
-            border-radius: 4px;
+            position: relative;
         }
         
         .collection-image img {
@@ -201,74 +167,70 @@
         }
         
         .collection-item:hover .collection-image img {
-            transform: scale(1.05);
+            transform: scale(1.03);
         }
         
-        .collection-item h4 {
-            font-size: 1.2rem;
-            font-weight: 500;
-            margin-bottom: 10px;
+        .collection-name {
+            font-size: 18px;
+            font-weight: 400;
+            letter-spacing: 1px;
             text-transform: uppercase;
-            letter-spacing: 2px;
-            color: #333;
+            margin-bottom: 15px;
+            color: #1a1a1a;
         }
         
         .collection-link {
-            color: #333;
+            color: #1a1a1a;
             text-decoration: none;
-            font-size: 0.9rem;
+            font-size: 14px;
             letter-spacing: 1px;
             text-transform: uppercase;
-            border-bottom: 1px solid transparent;
             padding-bottom: 2px;
+            border-bottom: 1px solid transparent;
             transition: border-color 0.3s ease;
-            display: inline-block;
-            margin-top: 10px;
-            font-weight: 500;
         }
         
         .collection-link:hover {
-            border-bottom: 1px solid #333;
+            border-bottom: 1px solid #1a1a1a;
         }
         
-        /* Shop-Bereich */
+        /* SHOP SECTION */
         .shop-section {
+            background-color: #f5f5f5; /* Hellgrau wie Gesamthintergrund */
             padding: 80px 40px;
-            background-color: #f8f8f8; /* Hellgrau wie Gesamthintergrund */
             text-align: center;
+            border-top: 1px solid #e0e0e0;
         }
         
-        .shop-section h3 {
-            font-size: 1.8rem;
+        .shop-title {
+            font-size: 24px;
             font-weight: 300;
-            letter-spacing: 1px;
-            margin-bottom: 20px;
+            letter-spacing: 2px;
             text-transform: uppercase;
+            margin-bottom: 20px;
+            color: #1a1a1a;
         }
         
-        .shop-section p {
-            color: #777;
-            max-width: 600px;
-            margin: 0 auto 40px;
-        }
-        
-        /* Newsletter-Bereich */
+        /* NEWSLETTER SECTION */
         .newsletter {
+            background-color: #fff; /* Weißer Hintergrund für Newsletter */
             padding: 80px 40px;
-            background-color: #fff; /* Weißer Hintergrund für Kontrast */
             text-align: center;
+            border-top: 1px solid #e0e0e0;
         }
         
-        .newsletter h3 {
-            font-size: 1.8rem;
+        .newsletter-title {
+            font-size: 24px;
             font-weight: 300;
-            letter-spacing: 1px;
-            margin-bottom: 20px;
+            letter-spacing: 2px;
             text-transform: uppercase;
+            margin-bottom: 20px;
+            color: #1a1a1a;
         }
         
-        .newsletter p {
-            color: #777;
+        .newsletter-description {
+            font-size: 16px;
+            color: #666;
             max-width: 600px;
             margin: 0 auto 40px;
         }
@@ -284,16 +246,18 @@
             flex-grow: 1;
             padding: 15px 20px;
             border: 1px solid #ddd;
-            font-size: 1rem;
+            border-right: none;
+            font-size: 14px;
             outline: none;
+            color: #666;
         }
         
         .newsletter-button {
             padding: 15px 30px;
-            background-color: #333;
+            background-color: #1a1a1a;
             color: white;
-            border: none;
-            font-size: 1rem;
+            border: 1px solid #1a1a1a;
+            font-size: 14px;
             letter-spacing: 1px;
             text-transform: uppercase;
             cursor: pointer;
@@ -301,187 +265,150 @@
         }
         
         .newsletter-button:hover {
-            background-color: #555;
+            background-color: #333;
         }
         
-        /* Footer */
+        /* FOOTER */
         footer {
-            background-color: #f8f8f8;
+            background-color: #f5f5f5; /* Hellgrau wie Gesamthintergrund */
             padding: 30px 40px;
             text-align: center;
-            border-top: 1px solid #eee;
-            color: #777;
-            font-size: 0.9rem;
+            border-top: 1px solid #e0e0e0;
+            color: #666;
+            font-size: 12px;
+            letter-spacing: 0.5px;
         }
         
-        /* Responsive Design */
+        /* RESPONSIVE DESIGN */
+        @media (max-width: 1024px) {
+            .collection-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 30px;
+            }
+        }
+        
         @media (max-width: 768px) {
-            .top-bar {
-                flex-direction: column;
-                gap: 15px;
+            .main-nav {
                 padding: 15px 20px;
-                position: relative;
+            }
+            
+            .nav-links {
+                gap: 15px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .nav-separator {
+                display: none;
             }
             
             .hero {
-                margin-top: 0;
-                height: 90vh;
+                padding: 80px 20px 60px;
             }
             
-            .hero h1 {
-                font-size: 2.5rem;
+            .hero-title {
+                font-size: 36px;
+                letter-spacing: 4px;
             }
             
-            .hero h2 {
-                font-size: 1rem;
-                letter-spacing: 5px;
+            .hero-subtitle {
+                font-size: 14px;
+                letter-spacing: 3px;
             }
             
-            .collection-item {
-                width: 280px;
+            .collection-grid {
+                grid-template-columns: 1fr;
+                gap: 50px;
+                max-width: 400px;
             }
             
             .collection-image {
-                height: 300px;
-            }
-            
-            .collection-scroll {
-                gap: 20px;
-                padding: 20px 15px 40px 15px;
+                height: 350px;
             }
             
             .newsletter-form {
                 flex-direction: column;
             }
             
-            .newsletter-input, .newsletter-button {
-                width: 100%;
+            .newsletter-input {
+                border-right: 1px solid #ddd;
+                border-bottom: none;
                 margin-bottom: 10px;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Top Navigation -->
-    <div class="top-bar">
+    <!-- Navigation -->
+    <nav class="main-nav">
         <div class="nav-links">
             <a href="#">KOLLEKTIONEN</a>
+            <span class="nav-separator">|</span>
             <a href="#">ÜBER UNS</a>
+            <span class="nav-separator">|</span>
             <a href="#">KONTAKT</a>
         </div>
-    </div>
+    </nav>
 
     <!-- Hero Section -->
     <section class="hero">
-        <h1>EUROPEAN INTERIOR</h1>
-        <h2>GALLERY</h2>
-        <p>Curated lighting & objects for modern living</p>
-        <a href="#collections" class="cta-button">EXPLORE COLLECTION →</a>
+        <h1 class="hero-title">EUROPEAN INTERIOR</h1>
+        <h2 class="hero-subtitle">Gallery</h2>
+        <p class="hero-description">Curated lighting & objects for modern living</p>
+        <a href="#" class="cta-button">Explore the Collection →</a>
     </section>
 
-    <!-- Kollektionen Section -->
-    <section class="collections" id="collections">
+    <!-- Collections Section -->
+    <section class="collections">
         <div class="section-header">
-            <h3>UNSERE KOLLEKTIONEN</h3>
-            <p>Curated lighting & objects for modern living.</p>
+            <h3 class="section-title">Unsere Kollektionen</h3>
+            <p class="section-description">Curated lighting & objects for modern living.</p>
         </div>
         
-        <!-- Scrollbare Galerie mit ALLEN 10 Bildern -->
-        <div class="collection-scroll">
-            <!-- 4 Hauptkategorien -->
+        <div class="collection-grid">
             <div class="collection-item">
                 <div class="collection-image">
                     <img src="images/Lamp6.jpg" alt="Modern Classics">
                 </div>
-                <h4>MODERN CLASSICS</h4>
-                <a href="#" class="collection-link">ANSEHEN →</a>
+                <h4 class="collection-name">Modern Classics</h4>
+                <a href="#" class="collection-link">Ansehen →</a>
             </div>
             
             <div class="collection-item">
                 <div class="collection-image">
                     <img src="images/Lamp7.jpg" alt="Iconic Objects">
                 </div>
-                <h4>ICONIC OBJECTS</h4>
-                <a href="#" class="collection-link">ANSEHEN →</a>
+                <h4 class="collection-name">Iconic Objects</h4>
+                <a href="#" class="collection-link">Ansehen →</a>
             </div>
             
             <div class="collection-item">
                 <div class="collection-image">
                     <img src="images/Lamp8.jpg" alt="Statement Lighting">
                 </div>
-                <h4>STATEMENT LIGHTING</h4>
-                <a href="#" class="collection-link">ANSEHEN →</a>
+                <h4 class="collection-name">Statement Lighting</h4>
+                <a href="#" class="collection-link">Ansehen →</a>
             </div>
             
             <div class="collection-item">
                 <div class="collection-image">
                     <img src="images/Lamp9.jpg" alt="Architectural Light">
                 </div>
-                <h4>ARCHITECTURAL LIGHT</h4>
-                <a href="#" class="collection-link">ANSEHEN →</a>
-            </div>
-            
-            <!-- Weitere Bilder aus deinem Ordner -->
-            <div class="collection-item">
-                <div class="collection-image">
-                    <img src="images/Lamp1.jpg" alt="Design Lampe 1">
-                </div>
-                <h4>MINIMAL DESIGN</h4>
-                <a href="#" class="collection-link">ANSEHEN →</a>
-            </div>
-            
-            <div class="collection-item">
-                <div class="collection-image">
-                    <img src="images/Lamp2.jpg" alt="Design Lampe 2">
-                </div>
-                <h4>SCANDINAVIAN</h4>
-                <a href="#" class="collection-link">ANSEHEN →</a>
-            </div>
-            
-            <div class="collection-item">
-                <div class="collection-image">
-                    <img src="images/Lamp3.jpg" alt="Design Lampe 3">
-                </div>
-                <h4>INDUSTRIAL</h4>
-                <a href="#" class="collection-link">ANSEHEN →</a>
-            </div>
-            
-            <div class="collection-item">
-                <div class="collection-image">
-                    <img src="images/Lamp4.jpg" alt="Design Lampe 4">
-                </div>
-                <h4>MODERN LUXURY</h4>
-                <a href="#" class="collection-link">ANSEHEN →</a>
-            </div>
-            
-            <div class="collection-item">
-                <div class="collection-image">
-                    <img src="images/Lamp5.jpg" alt="Design Lampe 5">
-                </div>
-                <h4>CONTEMPORARY</h4>
-                <a href="#" class="collection-link">ANSEHEN →</a>
-            </div>
-            
-            <div class="collection-item">
-                <div class="collection-image">
-                    <img src="images/Lamp10.jpg" alt="Design Lampe 10">
-                </div>
-                <h4>ART DECO</h4>
-                <a href="#" class="collection-link">ANSEHEN →</a>
+                <h4 class="collection-name">Architectural Light</h4>
+                <a href="#" class="collection-link">Ansehen →</a>
             </div>
         </div>
     </section>
 
     <!-- Shop Section -->
     <section class="shop-section">
-        <h3>ENTDECKEN SIE UNSEREN KURATIERTEN INTERIOR-SHOP</h3>
-        <p>Finden Sie ausgewählte Designstücke für Ihr Zuhause.</p>
+        <h3 class="shop-title">Entdecken Sie unseren kuratierten Interior-Shop.</h3>
     </section>
 
     <!-- Newsletter Section -->
     <section class="newsletter">
-        <h3>Melden Sie sich an für exklusive Angebote und inspirierende Designs.</h3>
-        <p>Bleiben Sie auf dem Laufenden mit unseren neuesten Kollektionen und Sonderangeboten.</p>
+        <h3 class="newsletter-title">Melden Sie sich an für exklusive Angebote und inspirierende Designs.</h3>
+        <p class="newsletter-description">Bleiben Sie auf dem Laufenden mit unseren neuesten Kollektionen und Sonderangeboten.</p>
         
         <form class="newsletter-form">
             <input type="email" class="newsletter-input" placeholder="Ihre E-Mail Adresse" required>
