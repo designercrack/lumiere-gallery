@@ -61,7 +61,7 @@
             font-weight: 300;
         }
         
-        /* HERO SECTION - ORIGINAL BILD OHNE GRÜNEN FILTER */
+        /* HERO SECTION - ORIGINAL BILD OHNE GRÜNEN FILTER & OHNE GRUNDBLOCK */
         .hero {
             position: relative;
             height: 90vh;
@@ -76,14 +76,7 @@
             padding: 0 20px;
         }
         
-        /* DUNKLE ÜBERLAGERUNG für bessere Lesbarkeit */
-        .hero-overlay {
-            background: rgba(12, 31, 19, 0.6); /* Dunkelgrüne halbtransparente Overlay */
-            padding: 60px 40px;
-            border-radius: 4px;
-            max-width: 800px;
-        }
-        
+        /* KEIN GRUNDBLOCK MEHR - nur Texte mit Schatten für bessere Lesbarkeit */
         .hero-title {
             font-size: 48px;
             font-weight: 300;
@@ -91,7 +84,7 @@
             text-transform: uppercase;
             margin-bottom: 10px;
             color: #ffffff;
-            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
         }
         
         .hero-subtitle {
@@ -101,17 +94,17 @@
             text-transform: uppercase;
             margin-bottom: 30px;
             color: #ffffff;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+            text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.8);
         }
         
         .hero-description {
             font-size: 16px;
             font-weight: 300;
-            color: #e0e0e0;
+            color: #ffffff;
             max-width: 500px;
             margin: 0 auto 40px;
             line-height: 1.8;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.8);
         }
         
         .cta-button {
@@ -125,17 +118,21 @@
             letter-spacing: 2px;
             text-transform: uppercase;
             transition: all 0.3s ease;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
         }
         
         .cta-button:hover {
             background-color: #ffffff;
             color: #0c1f13; /* Dunkelgrün bei Hover */
+            text-shadow: none;
         }
         
-        /* COLLECTIONS SECTION - SCROLLBAR */
+        /* COLLECTIONS SECTION - SCROLLBAR MIT ENDLOS-EFFEKT */
         .collections {
             background-color: #0c1f13; /* Dunkelgrün */
             padding: 100px 40px;
+            position: relative;
+            overflow: hidden;
         }
         
         .section-header {
@@ -159,33 +156,47 @@
             margin: 0 auto;
         }
         
-        /* SCROLLBARE GALERIE - ALLE 10 BILDER */
+        /* ENDLOS-SCROLL CONTAINER */
+        .scroll-container {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+            padding: 30px 0;
+        }
+        
+        /* ERSTE SCROLLBARE GALERIE (für Animation) */
         .collection-scroll {
             display: flex;
-            overflow-x: auto;
             gap: 30px;
-            padding: 30px 20px 50px;
-            scrollbar-width: thin;
-            scrollbar-color: #1a3c27 #0c1f13;
+            padding: 20px 0;
+            width: max-content;
+            animation: scroll 40s linear infinite;
         }
         
-        /* Custom Scrollbar */
-        .collection-scroll::-webkit-scrollbar {
-            height: 8px;
+        /* ZWEITE SCROLLBARE GALERIE (Duplikat für nahtlosen Übergang) */
+        .collection-scroll-duplicate {
+            display: flex;
+            gap: 30px;
+            padding: 20px 0;
+            width: max-content;
+            animation: scroll 40s linear infinite;
+            animation-delay: -20s; /* Hälfte der Zeit versetzt */
         }
         
-        .collection-scroll::-webkit-scrollbar-track {
-            background: #142a1b;
-            border-radius: 4px;
+        /* ANIMATION FÜR ENDLOS-SCROLL */
+        @keyframes scroll {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(-50%);
+            }
         }
         
-        .collection-scroll::-webkit-scrollbar-thumb {
-            background: #1a3c27;
-            border-radius: 4px;
-        }
-        
-        .collection-scroll::-webkit-scrollbar-thumb:hover {
-            background: #2a4d38;
+        /* PAUSE ANIMATION BEI HOVER */
+        .scroll-container:hover .collection-scroll,
+        .scroll-container:hover .collection-scroll-duplicate {
+            animation-play-state: paused;
         }
         
         .collection-item {
@@ -362,10 +373,6 @@
                 background-position: center 25%; /* Auf mobil noch etwas höher */
             }
             
-            .hero-overlay {
-                padding: 40px 20px;
-            }
-            
             .hero-title {
                 font-size: 36px;
                 letter-spacing: 4px;
@@ -384,9 +391,19 @@
                 height: 300px;
             }
             
-            .collection-scroll {
+            .collection-scroll,
+            .collection-scroll-duplicate {
                 gap: 20px;
-                padding: 20px 15px 40px;
+            }
+            
+            .scroll-container {
+                padding: 20px 0;
+            }
+            
+            /* Langsamere Animation auf Mobile */
+            .collection-scroll,
+            .collection-scroll-duplicate {
+                animation: scroll 60s linear infinite;
             }
             
             .newsletter-form {
@@ -420,105 +437,191 @@
         </div>
     </nav>
 
-    <!-- Hero Section - ORIGINAL BILD OHNE GRÜNEN FILTER -->
+    <!-- Hero Section - ORIGINAL BILD OHNE GRÜNEN FILTER & OHNE GRUNDBLOCK -->
     <section class="hero">
-        <div class="hero-overlay">
-            <h1 class="hero-title">EUROPEAN INTERIOR</h1>
-            <h2 class="hero-subtitle">Gallery</h2>
-            <p class="hero-description">Curated lighting & objects for modern living</p>
-            <a href="#collections" class="cta-button">Explore the Collection →</a>
-        </div>
+        <h1 class="hero-title">EUROPEAN INTERIOR</h1>
+        <h2 class="hero-subtitle">GALLERY</h2>
+        <p class="hero-description">Curated lighting & objects for modern living</p>
+        <a href="#collections" class="cta-button">EXPLORE THE COLLECTION →</a>
     </section>
 
-    <!-- Collections Section - SCROLLBAR -->
+    <!-- Collections Section - ENDLOS SCROLLBAR -->
     <section class="collections" id="collections">
         <div class="section-header">
             <h3 class="section-title">Unsere Kollektionen</h3>
             <p class="section-description">Curated lighting & objects for modern living.</p>
         </div>
         
-        <!-- SCROLLBARE GALERIE MIT ALLEN BILDERN -->
-        <div class="collection-scroll">
-            <!-- 4 Hauptkategorien -->
-            <div class="collection-item">
-                <div class="collection-image">
-                    <img src="images/Lamp6.jpg" alt="Modern Classics">
+        <!-- ENDLOS-SCROLL CONTAINER -->
+        <div class="scroll-container">
+            <!-- ERSTE SCROLLBARE GALERIE -->
+            <div class="collection-scroll">
+                <!-- 4 Hauptkategorien -->
+                <div class="collection-item">
+                    <div class="collection-image">
+                        <img src="images/Lamp6.jpg" alt="Modern Classics">
+                    </div>
+                    <h4 class="collection-name">Modern Classics</h4>
+                    <a href="#" class="collection-link">Ansehen →</a>
                 </div>
-                <h4 class="collection-name">Modern Classics</h4>
-                <a href="#" class="collection-link">Ansehen →</a>
+                
+                <div class="collection-item">
+                    <div class="collection-image">
+                        <img src="images/Lamp7.jpg" alt="Iconic Objects">
+                    </div>
+                    <h4 class="collection-name">Iconic Objects</h4>
+                    <a href="#" class="collection-link">Ansehen →</a>
+                </div>
+                
+                <div class="collection-item">
+                    <div class="collection-image">
+                        <img src="images/Lamp8.jpg" alt="Statement Lighting">
+                    </div>
+                    <h4 class="collection-name">Statement Lighting</h4>
+                    <a href="#" class="collection-link">Ansehen →</a>
+                </div>
+                
+                <div class="collection-item">
+                    <div class="collection-image">
+                        <img src="images/Lamp9.jpg" alt="Architectural Light">
+                    </div>
+                    <h4 class="collection-name">Architectural Light</h4>
+                    <a href="#" class="collection-link">Ansehen →</a>
+                </div>
+                
+                <!-- WEITERE 6 BILDER -->
+                <div class="collection-item">
+                    <div class="collection-image">
+                        <img src="images/Lamp1.jpg" alt="Design Lampe 1">
+                    </div>
+                    <h4 class="collection-name">Minimal Design</h4>
+                    <a href="#" class="collection-link">Ansehen →</a>
+                </div>
+                
+                <div class="collection-item">
+                    <div class="collection-image">
+                        <img src="images/Lamp2.jpg" alt="Design Lampe 2">
+                    </div>
+                    <h4 class="collection-name">Scandinavian</h4>
+                    <a href="#" class="collection-link">Ansehen →</a>
+                </div>
+                
+                <div class="collection-item">
+                    <div class="collection-image">
+                        <img src="images/Lamp3.jpg" alt="Design Lampe 3">
+                    </div>
+                    <h4 class="collection-name">Industrial</h4>
+                    <a href="#" class="collection-link">Ansehen →</a>
+                </div>
+                
+                <div class="collection-item">
+                    <div class="collection-image">
+                        <img src="images/Lamp4.jpg" alt="Design Lampe 4">
+                    </div>
+                    <h4 class="collection-name">Modern Luxury</h4>
+                    <a href="#" class="collection-link">Ansehen →</a>
+                </div>
+                
+                <div class="collection-item">
+                    <div class="collection-image">
+                        <img src="images/Lamp5.jpg" alt="Design Lampe 5">
+                    </div>
+                    <h4 class="collection-name">Contemporary</h4>
+                    <a href="#" class="collection-link">Ansehen →</a>
+                </div>
+                
+                <div class="collection-item">
+                    <div class="collection-image">
+                        <img src="images/Lamp10.jpg" alt="Design Lampe 10">
+                    </div>
+                    <h4 class="collection-name">Art Deco</h4>
+                    <a href="#" class="collection-link">Ansehen →</a>
+                </div>
             </div>
             
-            <div class="collection-item">
-                <div class="collection-image">
-                    <img src="images/Lamp7.jpg" alt="Iconic Objects">
+            <!-- ZWEITE SCROLLBARE GALERIE (DUPLIKAT FÜR ENDLOS-EFFEKT) -->
+            <div class="collection-scroll-duplicate">
+                <!-- 4 Hauptkategorien -->
+                <div class="collection-item">
+                    <div class="collection-image">
+                        <img src="images/Lamp6.jpg" alt="Modern Classics">
+                    </div>
+                    <h4 class="collection-name">Modern Classics</h4>
+                    <a href="#" class="collection-link">Ansehen →</a>
                 </div>
-                <h4 class="collection-name">Iconic Objects</h4>
-                <a href="#" class="collection-link">Ansehen →</a>
-            </div>
-            
-            <div class="collection-item">
-                <div class="collection-image">
-                    <img src="images/Lamp8.jpg" alt="Statement Lighting">
+                
+                <div class="collection-item">
+                    <div class="collection-image">
+                        <img src="images/Lamp7.jpg" alt="Iconic Objects">
+                    </div>
+                    <h4 class="collection-name">Iconic Objects</h4>
+                    <a href="#" class="collection-link">Ansehen →</a>
                 </div>
-                <h4 class="collection-name">Statement Lighting</h4>
-                <a href="#" class="collection-link">Ansehen →</a>
-            </div>
-            
-            <div class="collection-item">
-                <div class="collection-image">
-                    <img src="images/Lamp9.jpg" alt="Architectural Light">
+                
+                <div class="collection-item">
+                    <div class="collection-image">
+                        <img src="images/Lamp8.jpg" alt="Statement Lighting">
+                    </div>
+                    <h4 class="collection-name">Statement Lighting</h4>
+                    <a href="#" class="collection-link">Ansehen →</a>
                 </div>
-                <h4 class="collection-name">Architectural Light</h4>
-                <a href="#" class="collection-link">Ansehen →</a>
-            </div>
-            
-            <!-- WEITERE 6 BILDER -->
-            <div class="collection-item">
-                <div class="collection-image">
-                    <img src="images/Lamp1.jpg" alt="Design Lampe 1">
+                
+                <div class="collection-item">
+                    <div class="collection-image">
+                        <img src="images/Lamp9.jpg" alt="Architectural Light">
+                    </div>
+                    <h4 class="collection-name">Architectural Light</h4>
+                    <a href="#" class="collection-link">Ansehen →</a>
                 </div>
-                <h4 class="collection-name">Minimal Design</h4>
-                <a href="#" class="collection-link">Ansehen →</a>
-            </div>
-            
-            <div class="collection-item">
-                <div class="collection-image">
-                    <img src="images/Lamp2.jpg" alt="Design Lampe 2">
+                
+                <!-- WEITERE 6 BILDER -->
+                <div class="collection-item">
+                    <div class="collection-image">
+                        <img src="images/Lamp1.jpg" alt="Design Lampe 1">
+                    </div>
+                    <h4 class="collection-name">Minimal Design</h4>
+                    <a href="#" class="collection-link">Ansehen →</a>
                 </div>
-                <h4 class="collection-name">Scandinavian</h4>
-                <a href="#" class="collection-link">Ansehen →</a>
-            </div>
-            
-            <div class="collection-item">
-                <div class="collection-image">
-                    <img src="images/Lamp3.jpg" alt="Design Lampe 3">
+                
+                <div class="collection-item">
+                    <div class="collection-image">
+                        <img src="images/Lamp2.jpg" alt="Design Lampe 2">
+                    </div>
+                    <h4 class="collection-name">Scandinavian</h4>
+                    <a href="#" class="collection-link">Ansehen →</a>
                 </div>
-                <h4 class="collection-name">Industrial</h4>
-                <a href="#" class="collection-link">Ansehen →</a>
-            </div>
-            
-            <div class="collection-item">
-                <div class="collection-image">
-                    <img src="images/Lamp4.jpg" alt="Design Lampe 4">
+                
+                <div class="collection-item">
+                    <div class="collection-image">
+                        <img src="images/Lamp3.jpg" alt="Design Lampe 3">
+                    </div>
+                    <h4 class="collection-name">Industrial</h4>
+                    <a href="#" class="collection-link">Ansehen →</a>
                 </div>
-                <h4 class="collection-name">Modern Luxury</h4>
-                <a href="#" class="collection-link">Ansehen →</a>
-            </div>
-            
-            <div class="collection-item">
-                <div class="collection-image">
-                    <img src="images/Lamp5.jpg" alt="Design Lampe 5">
+                
+                <div class="collection-item">
+                    <div class="collection-image">
+                        <img src="images/Lamp4.jpg" alt="Design Lampe 4">
+                    </div>
+                    <h4 class="collection-name">Modern Luxury</h4>
+                    <a href="#" class="collection-link">Ansehen →</a>
                 </div>
-                <h4 class="collection-name">Contemporary</h4>
-                <a href="#" class="collection-link">Ansehen →</a>
-            </div>
-            
-            <div class="collection-item">
-                <div class="collection-image">
-                    <img src="images/Lamp10.jpg" alt="Design Lampe 10">
+                
+                <div class="collection-item">
+                    <div class="collection-image">
+                        <img src="images/Lamp5.jpg" alt="Design Lampe 5">
+                    </div>
+                    <h4 class="collection-name">Contemporary</h4>
+                    <a href="#" class="collection-link">Ansehen →</a>
                 </div>
-                <h4 class="collection-name">Art Deco</h4>
-                <a href="#" class="collection-link">Ansehen →</a>
+                
+                <div class="collection-item">
+                    <div class="collection-image">
+                        <img src="images/Lamp10.jpg" alt="Design Lampe 10">
+                    </div>
+                    <h4 class="collection-name">Art Deco</h4>
+                    <a href="#" class="collection-link">Ansehen →</a>
+                </div>
             </div>
         </div>
     </section>
